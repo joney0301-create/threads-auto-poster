@@ -2,10 +2,7 @@ name: Draft (生成 → Issue起票 → LINE通知)
 
 on:
   schedule:
-        # JST 9:00 (UTC 0:00) 月水金日のみ下書き起票(週4回・約2日に1回)
     - cron: "0 0 * * 0,1,3,5"
-
-
   workflow_dispatch: {}
 
 permissions:
@@ -60,20 +57,18 @@ jobs:
               ``,
               `---`,
               ``,
-              `## Instagram 用キャプション (2200字以内)`,
+              `## Instagram 用キャプション`,
               ``,
               `<!-- INSTAGRAM_BODY_START -->`,
               draft.instagram_caption,
               `<!-- INSTAGRAM_BODY_END -->`,
               ``,
-              `> 修正したい場合は、START/END マーカーの **間だけ** を編集してください。`,
-              ``,
               `---`,
               ``,
               `## 操作方法`,
               ``,
-              `- 📷 **Instagramに投稿** → ラベル \`approved-instagram\``,
-              `- ❌ **却下** → ラベル \`rejected\``,
+              `- 📷 投稿 → ラベル \`approved-instagram\``,
+              `- ❌ 却下 → ラベル \`rejected\``,
               ``,
               `---`,
               ``,
@@ -112,8 +107,9 @@ jobs:
             core.setOutput('issue_number', issue.data.number);
             core.setOutput('issue_url', issue.data.html_url);
             core.setOutput('issue_title', title);
-            core.setOutput('caption_preview', (draft.instagram_caption || '').slice(0, 100));
+            core.setOutput('caption_full', draft.instagram_caption || '');
             core.setOutput('image_url', draft.image_url);
+            core.setOutput('carousel_urls_json', JSON.stringify(carouselUrls));
             core.setOutput('carousel_count', carouselUrls.length);
 
       - name: Notify LINE
@@ -123,21 +119,27 @@ jobs:
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
           ISSUE_URL: ${{ steps.create_issue.outputs.issue_url }}
           ISSUE_TITLE: ${{ steps.create_issue.outputs.issue_title }}
-          CAPTION_PREVIEW: ${{ steps.create_issue.outputs.caption_preview }}
+          CAPTION_FULL: ${{ steps.create_issue.outputs.caption_full }}
           IMAGE_URL: ${{ steps.create_issue.outputs.image_url }}
-          CAROUSEL_COUNT: ${{ steps.create_issue.outputs.carousel_count }}
+          CAROUSEL_URLS_JSON: ${{ steps.create_issue.outputs.carousel_urls_json }}
         run: |
           node -e '
-            const text = `📷 Instagram投稿の下書きが届きました\n\n${process.env.ISSUE_TITLE}\n\nキャプション(冒頭):\n${process.env.CAPTION_PREVIEW}...\n\n画像: ${process.env.CAROUSEL_COUNT >= 2 ? `${process.env.CAROUSEL_COUNT}枚カルーセル` : "1枚"}\n\n👉 内容確認 / 承認:\n${process.env.ISSUE_URL}\n\n承認: ラベル approved-instagram\n却下: ラベル rejected`;
+            let carouselUrls = [];
+            try { carouselUrls = JSON.parse(process.env.CAROUSEL_URLS_JSON || "[]"); } catch {}
+            if (carouselUrls.length === 0 && process.env.IMAGE_URL) {
+              carouselUrls = [process.env.IMAGE_URL];
+            }
+            carouselUrls = carouselUrls.filter(u => u && u.startsWith("https://") && /\.(jpg|jpeg|png)(\?|$)/i.test(u));
+            const text = `📷 Instagram投稿の下書き\n\n${process.env.ISSUE_TITLE}\n\n${process.env.CAPTION_FULL}\n\n👉 内容確認/承認:\n${process.env.ISSUE_URL}\n\n承認: ラベル approved-instagram\n却下: ラベル rejected`;
             const messages = [];
-            if (process.env.IMAGE_URL && process.env.IMAGE_URL.startsWith("https://")) {
+            for (const url of carouselUrls.slice(0, 4)) {
               messages.push({
                 type: "image",
-                originalContentUrl: process.env.IMAGE_URL,
-                previewImageUrl: process.env.IMAGE_URL,
+                originalContentUrl: url,
+                previewImageUrl: url,
               });
             }
-            messages.push({ type: "text", text });
+            messages.push({ type: "text", text: text.slice(0, 4900) });
             const body = JSON.stringify({
               to: process.env.LINE_USER_ID,
               messages,
