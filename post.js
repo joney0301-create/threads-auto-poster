@@ -21,6 +21,7 @@ const {
   DRAFT_IN_THREADS_TEXT,
   DRAFT_IN_INSTAGRAM_CAPTION,
   DRAFT_IN_IMAGE_URL,
+  DRAFT_IN_CAROUSEL_URLS,
   TARGET,
 } = process.env;
 
@@ -33,16 +34,17 @@ if (MODE === "draft") {
   die(`Unknown mode: ${MODE} (use 'draft' or 'publish')`);
 }
 
-// ===== DRAFT MODE =====
-
 async function runDraft() {
   const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
   const source = pickSource();
   if (!source) die("No sources found in sources.json");
 
+  const carouselUrls = Array.isArray(source.carousel_image_urls) ? source.carousel_image_urls : [];
+  const isCarousel = carouselUrls.length >= 2;
+
   const [threadsResult, instagramResult] = await Promise.all([
-    generatePost(anthropic, source, "threads"),
-    generatePost(anthropic, source, "instagram"),
+    generatePost(anthropic, source, "threads", isCarousel),
+    generatePost(anthropic, source, "instagram", isCarousel),
   ]);
 
   const result = {
@@ -51,6 +53,8 @@ async function runDraft() {
     title: source.title || null,
     location: source.location || null,
     image_url: source.image_url,
+    carousel_image_urls: carouselUrls,
+    is_carousel: isCarousel,
     source_url: source.source_url || null,
     threads_text: threadsResult.text,
     instagram_caption: instagramResult.text,
@@ -85,7 +89,7 @@ function readUsedSourceIds() {
   } catch { return []; }
 }
 
-async function generatePost(anthropic, source, target) {
+async function generatePost(anthropic, source, target, isCarousel) {
   const topic = source.topic_hint
     || config.topics[Math.floor(Math.random() * config.topics.length)];
   const recent = readRecentPosts(5, target);
@@ -111,6 +115,9 @@ async function generatePost(anthropic, source, target) {
   if (source.title) userPromptParts.push(`- 作品名: ${source.title}`);
   if (source.location) userPromptParts.push(`- 場所/竣工: ${source.location}`);
   if (source.description) userPromptParts.push(`- 設計概要: ${source.description}`);
+  if (target === "instagram" && isCarousel) {
+    userPromptParts.push(`- 複数枚のカルーセル投稿(スワイプ式、${(source.carousel_image_urls || []).length}枚)`);
+  }
   userPromptParts.push("");
   userPromptParts.push("この作品と関連する投稿文を書いてください。");
   userPromptParts.push("");
@@ -118,7 +125,7 @@ async function generatePost(anthropic, source, target) {
 
   const res = await anthropic.messages.create({
     model: config.model,
-    max_tokens: target === "instagram" ? 2000 : 800,
+    max_tokens: target === "instagram" ? 1500 : 800,
     system: systemPrompt,
     messages: [{ role: "user", content: userPromptParts.join("\n") }],
   });
@@ -149,8 +156,6 @@ function readRecentPosts(n, target) {
   } catch { return []; }
 }
 
-// ===== PUBLISH MODE =====
-
 async function runPublish() {
   const target = (TARGET || "threads").toLowerCase();
   if (target === "threads") return await publishThreads();
@@ -162,11 +167,8 @@ async function publishThreads() {
   if (!THREADS_USER_ID || !THREADS_ACCESS_TOKEN) die("THREADS_USER_ID and THREADS_ACCESS_TOKEN are required");
   const text = DRAFT_IN_THREADS_TEXT;
   if (!text) die("DRAFT_IN_THREADS_TEXT is required");
-
   const imageUrl = (DRAFT_IN_IMAGE_URL || "").trim() || null;
-
   if (text.length > 500) die(`Text too long: ${text.length} chars (Threads limit 500)`);
-
   const createUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
   const body = { text, access_token: THREADS_ACCESS_TOKEN };
   if (imageUrl) {
@@ -175,7 +177,6 @@ async function publishThreads() {
   } else {
     body.media_type = "TEXT";
   }
-
   const createRes = await fetch(createUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -183,9 +184,7 @@ async function publishThreads() {
   });
   if (!createRes.ok) throw new Error(`Threads create failed: ${createRes.status} ${await createRes.text()}`);
   const { id: containerId } = await createRes.json();
-
   await sleep(imageUrl ? 8000 : 3000);
-
   const publishUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads_publish`;
   const publishRes = await fetch(publishUrl, {
     method: "POST",
@@ -194,15 +193,9 @@ async function publishThreads() {
   });
   if (!publishRes.ok) throw new Error(`Threads publish failed: ${publishRes.status} ${await publishRes.text()}`);
   const { id: postId } = await publishRes.json();
-
   appendFileSync(LOG_PATH, JSON.stringify({
-    ts: new Date().toISOString(),
-    target: "threads",
-    text,
-    image_url: imageUrl,
-    postId,
+    ts: new Date().toISOString(), target: "threads", text, image_url: imageUrl, postId,
   }) + "\n");
-
   console.log(`Threads posted: id=${postId}`);
 }
 
@@ -210,32 +203,29 @@ async function publishInstagram() {
   if (!INSTAGRAM_USER_ID || !INSTAGRAM_ACCESS_TOKEN) die("INSTAGRAM_USER_ID and INSTAGRAM_ACCESS_TOKEN are required");
   const caption = DRAFT_IN_INSTAGRAM_CAPTION;
   if (!caption) die("DRAFT_IN_INSTAGRAM_CAPTION is required");
-
-  const imageUrl = (DRAFT_IN_IMAGE_URL || "").trim();
-  if (!imageUrl) die("DRAFT_IN_IMAGE_URL is required (Instagram requires an image)");
-
+  const carouselUrls = (DRAFT_IN_CAROUSEL_URLS || "").split(",").map((s) => s.trim()).filter(Boolean);
+  const singleUrl = (DRAFT_IN_IMAGE_URL || "").trim();
   if (caption.length > 2200) die(`Caption too long: ${caption.length} chars (IG limit 2200)`);
-
-  const containerId = await igCreateImageContainer(imageUrl, caption);
-  await igWaitForContainer(containerId);
-
+  let creationId;
+  if (carouselUrls.length >= 2) {
+    creationId = await igCreateCarouselContainer(carouselUrls, caption);
+  } else {
+    if (!singleUrl) die("DRAFT_IN_IMAGE_URL is required for single image post");
+    creationId = await igCreateImageContainer(singleUrl, caption);
+  }
+  await igWaitForContainer(creationId);
   const publishUrl = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media_publish`;
   const publishRes = await fetch(publishUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ creation_id: containerId, access_token: INSTAGRAM_ACCESS_TOKEN }),
+    body: JSON.stringify({ creation_id: creationId, access_token: INSTAGRAM_ACCESS_TOKEN }),
   });
   if (!publishRes.ok) throw new Error(`IG publish failed: ${publishRes.status} ${await publishRes.text()}`);
   const { id: postId } = await publishRes.json();
-
   appendFileSync(LOG_PATH, JSON.stringify({
-    ts: new Date().toISOString(),
-    target: "instagram",
-    text: caption,
-    image_url: imageUrl,
-    postId,
+    ts: new Date().toISOString(), target: "instagram", text: caption,
+    image_url: singleUrl || carouselUrls[0], carousel_count: carouselUrls.length, postId,
   }) + "\n");
-
   console.log(`Instagram posted: id=${postId}`);
 }
 
@@ -244,18 +234,41 @@ async function igCreateImageContainer(imageUrl, caption) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      image_url: imageUrl,
-      caption,
-      access_token: INSTAGRAM_ACCESS_TOKEN,
-    }),
+    body: JSON.stringify({ image_url: imageUrl, caption, access_token: INSTAGRAM_ACCESS_TOKEN }),
   });
   if (!res.ok) throw new Error(`IG image container failed: ${res.status} ${await res.text()}`);
   const { id } = await res.json();
   return id;
 }
 
-async function igWaitForContainer(containerId, maxWaitMs = 90000) {
+async function igCreateCarouselContainer(imageUrls, caption) {
+  const childIds = [];
+  for (const imageUrl of imageUrls) {
+    const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image_url: imageUrl, is_carousel_item: true, access_token: INSTAGRAM_ACCESS_TOKEN }),
+    });
+    if (!res.ok) throw new Error(`IG carousel child failed: ${res.status} ${await res.text()}`);
+    const { id } = await res.json();
+    childIds.push(id);
+    await igWaitForContainer(id);
+  }
+  const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      media_type: "CAROUSEL", caption, children: childIds.join(","), access_token: INSTAGRAM_ACCESS_TOKEN,
+    }),
+  });
+  if (!res.ok) throw new Error(`IG carousel parent failed: ${res.status} ${await res.text()}`);
+  const { id } = await res.json();
+  return id;
+}
+
+async function igWaitForContainer(containerId, maxWaitMs = 120000) {
   const start = Date.now();
   let lastStatus = "";
   while (Date.now() - start < maxWaitMs) {
@@ -271,11 +284,5 @@ async function igWaitForContainer(containerId, maxWaitMs = 90000) {
   throw new Error(`IG container did not finish in ${maxWaitMs}ms (last status: ${lastStatus})`);
 }
 
-// ===== utils =====
-
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
-
-function die(msg) {
-  console.error(`Error: ${msg}`);
-  process.exit(1);
-}
+function die(msg) { console.error(`Error: ${msg}`); process.exit(1); }
