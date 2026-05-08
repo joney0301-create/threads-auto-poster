@@ -1,0 +1,99 @@
+name: Draft (生成 → Issue起票)
+
+on:
+  schedule:
+    - cron: "0 22 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Generate draft
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DRAFT_OUT: draft.json
+        run: node post.js draft
+
+      - name: Create approval issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const draft = JSON.parse(fs.readFileSync('draft.json', 'utf-8'));
+            const jstNow = new Date(Date.now() + 9*3600*1000).toISOString().replace('T',' ').slice(0,16);
+            const title = `[投稿予定] ${jstNow} JST — ${draft.title || draft.topic}`;
+            const sourceLink = draft.source_url ? `[作品ページを開く](${draft.source_url})` : '(参照元URL未設定)';
+            const body = [
+              `> このIssueは Instagram 投稿の **承認待ち下書き** です。`,
+              ``,
+              `## 使用画像`,
+              ``,
+              `![image](${draft.image_url})`,
+              ``,
+              `- 作品: **${draft.title || '(無題)'}** / ${draft.location || ''}`,
+              `- 元ページ: ${sourceLink}`,
+              ``,
+              `---`,
+              ``,
+              `## Instagram 用キャプション (2200字以内)`,
+              ``,
+              `<!-- INSTAGRAM_BODY_START -->`,
+              draft.instagram_caption,
+              `<!-- INSTAGRAM_BODY_END -->`,
+              ``,
+              `> 修正したい場合は、START/END マーカーの **間だけ** を編集してください。`,
+              ``,
+              `---`,
+              ``,
+              `## 操作方法`,
+              ``,
+              `- 📷 **Instagramに投稿** → ラベル \`approved-instagram\``,
+              `- ❌ **却下** → ラベル \`rejected\``,
+              ``,
+              `---`,
+              ``,
+              `<details><summary>メタ情報</summary>`,
+              ``,
+              `- source_id: ${draft.source_id}`,
+              `- topic: ${draft.topic}`,
+              `- image_url: \`${draft.image_url}\``,
+              `- generated_at: ${draft.generated_at}`,
+              ``,
+              `</details>`,
+            ].join("\n");
+            const wanted = [
+              { name: 'draft', color: 'fbca04', description: '承認待ち' },
+              { name: 'approved-instagram', color: 'e94560', description: 'Instagramに投稿' },
+              { name: 'rejected', color: 'b60205', description: '却下' },
+              { name: 'posted-instagram', color: 'fad8c7', description: 'Instagram投稿済み' },
+            ];
+            const existing = (await github.paginate(github.rest.issues.listLabelsForRepo, {
+              owner: context.repo.owner, repo: context.repo.repo, per_page: 100,
+            })).map(l => l.name);
+            for (const l of wanted) {
+              if (!existing.includes(l.name)) {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  name: l.name, color: l.color, description: l.description,
+                });
+              }
+            }
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo,
+              title, body, labels: ['draft'],
+            });
+            core.notice(`Draft issue created: #${issue.data.number}`);
