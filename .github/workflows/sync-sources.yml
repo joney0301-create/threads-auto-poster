@@ -25,7 +25,7 @@ jobs:
           MICROCMS_SERVICE_ID: ${{ secrets.MICROCMS_SERVICE_ID || 'a5xuqpwtq5' }}
           MICROCMS_ENDPOINT: project
           # 除外したい作品ID(カンマ区切り、必要なら追加)
-          EXCLUDE_IDS: "awa-cr9_lb,c9kywngb1-s,6yo3lkr_57"
+          EXCLUDE_IDS: "awa-cr9_lb,c9kywngb1-s,6yo3lkr_57,mjd6f97re"
         run: node sync-sources.js
 
       - name: Commit if changed
