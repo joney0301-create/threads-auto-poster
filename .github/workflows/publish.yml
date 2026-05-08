@@ -1,0 +1,94 @@
+name: Publish (approved → Instagram投稿)
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  publish:
+    if: github.event.label.name == 'approved-instagram'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Parse approved issue
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || '';
+            const im = body.match(/<!-- INSTAGRAM_BODY_START -->\s*([\s\S]*?)\s*<!-- INSTAGRAM_BODY_END -->/);
+            if (!im) { core.setFailed('BODY markers not found'); return; }
+            const caption = im[1].trim();
+            const um = body.match(/- image_url: `([^`]+)`/);
+            const imageUrl = um ? um[1] : '';
+            if (!imageUrl) { core.setFailed('image_url not found'); return; }
+            core.setOutput('caption', caption);
+            core.setOutput('image_url', imageUrl);
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `🚀 Instagram へ投稿処理を開始します...`,
+            });
+
+      - name: Post to Instagram
+        env:
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          DRAFT_IN_INSTAGRAM_CAPTION: ${{ steps.parse.outputs.caption }}
+          DRAFT_IN_IMAGE_URL: ${{ steps.parse.outputs.image_url }}
+          TARGET: instagram
+        run: node post.js publish
+
+      - name: Finalize issue
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, name: 'draft',
+            }).catch(() => {});
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, name: 'approved-instagram',
+            }).catch(() => {});
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, labels: ['posted-instagram'],
+            });
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `✅ Instagram に投稿しました`,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, state: 'closed',
+            });
+
+      - name: Report failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number, name: 'approved-instagram',
+            }).catch(() => {});
+            await github.rest.issues.createComment({
+              owner: context.repo.owner, repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `❌ 投稿失敗。Actions ログ確認: ${context.payload.repository.html_url}/actions/runs/${context.runId}`,
+            });
