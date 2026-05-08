@@ -1,0 +1,17 @@
+{
+  "name": "threads-auto-poster",
+  "version": "1.0.0",
+  "description": "Auto-generate and post to Threads using Claude API",
+  "type": "module",
+  "main": "post.js",
+  "scripts": {
+    "post": "node post.js",
+    "dry-run": "DRY_RUN=1 node post.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
