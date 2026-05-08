@@ -1,8 +1,9 @@
-name: Draft (生成 → Issue起票)
+name: Draft (生成 → Issue起票 → LINE通知)
 
 on:
   schedule:
-    - cron: "0 22 * * *"
+    # JST 9:00 (UTC 0:00) に下書き起票
+    - cron: "0 0 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -29,6 +30,7 @@ jobs:
         run: node post.js draft
 
       - name: Create approval issue
+        id: create_issue
         uses: actions/github-script@v7
         with:
           script: |
@@ -37,12 +39,19 @@ jobs:
             const jstNow = new Date(Date.now() + 9*3600*1000).toISOString().replace('T',' ').slice(0,16);
             const title = `[投稿予定] ${jstNow} JST — ${draft.title || draft.topic}`;
             const sourceLink = draft.source_url ? `[作品ページを開く](${draft.source_url})` : '(参照元URL未設定)';
+            const carouselUrls = Array.isArray(draft.carousel_image_urls) ? draft.carousel_image_urls : [];
+            const isCarousel = draft.is_carousel && carouselUrls.length >= 2;
+            const imageBlock = isCarousel
+              ? `## 使用画像 (${carouselUrls.length}枚カルーセル投稿)\n\n` +
+                carouselUrls.map((u, i) => `**${i+1}枚目**\n![image-${i+1}](${u})`).join("\n\n")
+              : `## 使用画像\n\n![image](${draft.image_url})`;
+            const carouselUrlsLine = isCarousel
+              ? `- carousel_image_urls: \`${carouselUrls.join(',')}\``
+              : `- carousel_image_urls: (none, single image)`;
             const body = [
               `> このIssueは Instagram 投稿の **承認待ち下書き** です。`,
               ``,
-              `## 使用画像`,
-              ``,
-              `![image](${draft.image_url})`,
+              imageBlock,
               ``,
               `- 作品: **${draft.title || '(無題)'}** / ${draft.location || ''}`,
               `- 元ページ: ${sourceLink}`,
@@ -71,6 +80,7 @@ jobs:
               `- source_id: ${draft.source_id}`,
               `- topic: ${draft.topic}`,
               `- image_url: \`${draft.image_url}\``,
+              carouselUrlsLine,
               `- generated_at: ${draft.generated_at}`,
               ``,
               `</details>`,
@@ -97,3 +107,49 @@ jobs:
               title, body, labels: ['draft'],
             });
             core.notice(`Draft issue created: #${issue.data.number}`);
+            core.setOutput('issue_number', issue.data.number);
+            core.setOutput('issue_url', issue.data.html_url);
+            core.setOutput('issue_title', title);
+            core.setOutput('caption_preview', (draft.instagram_caption || '').slice(0, 100));
+            core.setOutput('image_url', draft.image_url);
+            core.setOutput('carousel_count', carouselUrls.length);
+
+      - name: Notify LINE
+        if: success() && env.LINE_ACCESS_TOKEN != ''
+        env:
+          LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+          ISSUE_URL: ${{ steps.create_issue.outputs.issue_url }}
+          ISSUE_TITLE: ${{ steps.create_issue.outputs.issue_title }}
+          CAPTION_PREVIEW: ${{ steps.create_issue.outputs.caption_preview }}
+          IMAGE_URL: ${{ steps.create_issue.outputs.image_url }}
+          CAROUSEL_COUNT: ${{ steps.create_issue.outputs.carousel_count }}
+        run: |
+          node -e '
+            const text = `📷 Instagram投稿の下書きが届きました\n\n${process.env.ISSUE_TITLE}\n\nキャプション(冒頭):\n${process.env.CAPTION_PREVIEW}...\n\n画像: ${process.env.CAROUSEL_COUNT >= 2 ? `${process.env.CAROUSEL_COUNT}枚カルーセル` : "1枚"}\n\n👉 内容確認 / 承認:\n${process.env.ISSUE_URL}\n\n承認: ラベル approved-instagram\n却下: ラベル rejected`;
+            const messages = [];
+            if (process.env.IMAGE_URL && process.env.IMAGE_URL.startsWith("https://")) {
+              messages.push({
+                type: "image",
+                originalContentUrl: process.env.IMAGE_URL,
+                previewImageUrl: process.env.IMAGE_URL,
+              });
+            }
+            messages.push({ type: "text", text });
+            const body = JSON.stringify({
+              to: process.env.LINE_USER_ID,
+              messages,
+            });
+            fetch("https://api.line.me/v2/bot/message/push", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.LINE_ACCESS_TOKEN}`,
+              },
+              body,
+            }).then(async (r) => {
+              const t = await r.text();
+              if (!r.ok) { console.error("LINE notify failed:", r.status, t); process.exit(1); }
+              console.log("LINE notify sent");
+            }).catch((e) => { console.error("LINE notify error:", e); process.exit(1); });
+          '
