@@ -22,6 +22,7 @@ const {
   DRAFT_IN_INSTAGRAM_CAPTION,
   DRAFT_IN_IMAGE_URL,
   DRAFT_IN_CAROUSEL_URLS,
+  DRAFT_IN_SOURCE_ID,
   TARGET,
 } = process.env;
 
@@ -39,7 +40,7 @@ async function runDraft() {
   const source = pickSource();
   if (!source) die("No sources found in sources.json");
 
-  const carouselUrls = Array.isArray(source.carousel_image_urls) ? source.carousel_image_urls : [];
+  const carouselUrls = pickCarouselImages(source);
   const isCarousel = carouselUrls.length >= 2;
 
   const [threadsResult, instagramResult] = await Promise.all([
@@ -52,7 +53,7 @@ async function runDraft() {
     topic: threadsResult.topic,
     title: source.title || null,
     location: source.location || null,
-    image_url: source.image_url,
+    image_url: carouselUrls[0] || source.image_url,
     carousel_image_urls: carouselUrls,
     is_carousel: isCarousel,
     source_url: source.source_url || null,
@@ -89,6 +90,35 @@ function readUsedSourceIds() {
   } catch { return []; }
 }
 
+function readRecentImageUrlsForSource(sourceId) {
+  try {
+    const lines = readFileSync(LOG_PATH, "utf-8").trim().split("\n").filter(Boolean);
+    const used = new Set();
+    for (const l of lines) {
+      try {
+        const e = JSON.parse(l);
+        if (e.source_id === sourceId && Array.isArray(e.carousel_image_urls)) {
+          e.carousel_image_urls.forEach((u) => used.add(u));
+        }
+      } catch {}
+    }
+    return [...used];
+  } catch { return []; }
+}
+
+function pickCarouselImages(source) {
+  const allUrls = (Array.isArray(source.all_image_urls) && source.all_image_urls.length > 0)
+    ? source.all_image_urls
+    : (Array.isArray(source.carousel_image_urls) ? source.carousel_image_urls : []);
+  if (allUrls.length === 0) return [];
+  if (allUrls.length <= 4) return allUrls.slice(0, 4);
+  const recentlyUsed = readRecentImageUrlsForSource(source.id);
+  const unused = allUrls.filter((u) => !recentlyUsed.includes(u));
+  const pool = unused.length >= 4 ? unused : allUrls;
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 4);
+}
+
 async function generatePost(anthropic, source, target, isCarousel) {
   const topic = source.topic_hint
     || config.topics[Math.floor(Math.random() * config.topics.length)];
@@ -116,7 +146,8 @@ async function generatePost(anthropic, source, target, isCarousel) {
   if (source.location) userPromptParts.push(`- 場所/竣工: ${source.location}`);
   if (source.description) userPromptParts.push(`- 設計概要: ${source.description}`);
   if (target === "instagram" && isCarousel) {
-    userPromptParts.push(`- 複数枚のカルーセル投稿(スワイプ式、${(source.carousel_image_urls || []).length}枚)`);
+    const c = (source.carousel_image_urls || []).length || 4;
+    userPromptParts.push(`- 複数枚のカルーセル投稿(スワイプ式、${c}枚)`);
   }
   userPromptParts.push("");
   userPromptParts.push("この作品と関連する投稿文を書いてください。");
@@ -224,7 +255,8 @@ async function publishInstagram() {
   const { id: postId } = await publishRes.json();
   appendFileSync(LOG_PATH, JSON.stringify({
     ts: new Date().toISOString(), target: "instagram", text: caption,
-    image_url: singleUrl || carouselUrls[0], carousel_count: carouselUrls.length, postId,
+    image_url: singleUrl || carouselUrls[0], carousel_count: carouselUrls.length,
+    carousel_image_urls: carouselUrls, source_id: DRAFT_IN_SOURCE_ID || null, postId,
   }) + "\n");
   console.log(`Instagram posted: id=${postId}`);
 }
