@@ -2,8 +2,10 @@ name: Draft (生成 → Issue起票 → LINE通知)
 
 on:
   schedule:
-    # JST 9:00 (UTC 0:00) に下書き起票
-    - cron: "0 0 * * *"
+        # JST 9:00 (UTC 0:00) 月水金日のみ下書き起票(週4回・約2日に1回)
+    - cron: "0 0 * * 0,1,3,5"
+
+
   workflow_dispatch: {}
 
 permissions:
