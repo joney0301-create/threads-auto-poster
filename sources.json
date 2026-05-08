@@ -2,8 +2,24 @@
   {
     "id": "l8cxh94hdkwo",
     "title": "煙間 天神大名店",
-    "location": "福岡県福岡市 / 2026.2",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3294c772ae2b4aad8795474515339070/20260217small_0001.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3294c772ae2b4aad8795474515339070/20260217small_0001.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1adca24fbbd34b86824037a0a1d4e3ce/20260217small_0002.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/80624bcb85074047b09d449da3668f15/20260217small_0004.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0ae326b635584a38b0b85413e6edcb87/20260217small_0005.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/111c0f5aa6194fdcbae9fae59450846a/20260217small_0007.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0c4c8e44dc8b4d9dba06dcd2afec5f34/20260217small_0008.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1264c3b7602d4d22a23d17e34f6206dd/20260217small_0019.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5303da11014b416884c91fe786f8088b/20260217small_0010.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ea3036e14a4d43fb82116c354b346fc4/20260217small_0014.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/352b57d0cd5c4d50a6c5782c34e4a18c/20260217small_0022.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/c12d34cd16c544ec8bf8cf47f056427a/20260217small_0033.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0e9d72fd958c45f3a074ad3fa276cbd1/20260217small_0035.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b688f68561404bfca89e92a0b525a70a/20260217small_0044.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/632f7d6a68aa416fbd8e8a40415fc98e/20260217small_0021.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3294c772ae2b4aad8795474515339070/20260217small_0001.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1adca24fbbd34b86824037a0a1d4e3ce/20260217small_0002.jpg",
@@ -11,15 +27,33 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0ae326b635584a38b0b85413e6edcb87/20260217small_0005.jpg"
     ],
     "source_url": "https://colohu.com/project/l8cxh94hdkwo/",
-    "description": "福岡県福岡市に計画したシーシャバーの内装である。本計画ではストリングカーテンを用いて客席と通路を緩やかに区切り、空間に連続性を持たせる構成とした。カーテンは一筆書きのように空間全体を巡り、明確な壁を設けることなく領域を分節する。その境界は曖昧でありながらも視線の抜けや光の重なりによって、適度な距離感と居場所性を生み出している。半個室のようでありながら完全には閉じないその構成は、利用者同士の気配を感じさせつつ個々の時間を確保するための装置として機能する。",
+    "description": "福岡県福岡市に計画したシーシャバーの内装である。本計画ではストリングカーテンを用いて客席と通路を緩やかに区切り、空間に連続性を持たせる構成とした。カーテンは一筆書きのように空間全体を巡り、明確な壁を設けることなく領域を分節する。その境界は曖昧でありながらも視線の抜けや光の重なりによって、適度な距離感と居場所性を生み出している。半個室のようでありながら完全には閉じないその構成は、利用者同士の気配を感じさせつつ個々の時間を確保するための装置として機能する。またストリングカーテンの内外で天井仕上げを切り替え、通路側はメタリック塗装とすることで光を柔らかく反射させ空間に広がりとオープンな印象を与えている。一方で客席側は漆黒で仕上げ、光を抑えることで落ち着きのある滞在空間を形成した。柔らかく仕切られた境界と素材の違いが重なり合うことで、空間に奥行きと変化のある体験を生み出している。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "53u1kih-1l8",
     "title": "就労支援施設B型オフィス",
-    "location": "兵庫県神戸市 / 2025.12",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9b0a9ba480d44658a083a1fb5da375df/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-2.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9b0a9ba480d44658a083a1fb5da375df/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/fa57f4a5262c4d0fa9eb2d96f16b99c5/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2d2b088b34df4cbbb958ed731ad49484/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b0f23b5ec28a427782cd25cbebbbaf5c/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-17.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/695a2d864f6d47be9549d775ed539cbc/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-19.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/753a4813b856456eab8e0a475c1c69f2/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-27.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/35e56267884f4c59b474bec7b4b85f42/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e2e76d33ae004b7aa38ad5ba9aa27437/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-16.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7f93eac0f50743239c0dbd4a142cc9b1/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-14.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5fb45762ecda4c4f8292215a2a695f7d/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-10.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/bbd31b5b964042569fc1ce0fd67bc557/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-8.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/021cd4d1ae624ab89f5c05057c63f985/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_C_sm-6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/fa72fa3617ad4d578ec577bc02921155/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_A_sm-4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/063ca2bbf82e452ead3dfac03deb1c34/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_A_sm-3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ce2275b1382a411d9a97cd2e00fa11cd/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_A_sm-9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ccb28455863a473ebaa920a869f8e491/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_A_sm-1.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9b0a9ba480d44658a083a1fb5da375df/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/fa57f4a5262c4d0fa9eb2d96f16b99c5/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-4.jpg",
@@ -27,15 +61,28 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b0f23b5ec28a427782cd25cbebbbaf5c/cojohu_%E7%A5%9E%E6%88%B8%E3%81%AE%E5%B0%B1%E5%8A%B4%E6%94%AF%E6%8F%B4%E6%96%BD%E8%A8%AD_nakamura_B_sm-17.jpg"
     ],
     "source_url": "https://colohu.com/project/53u1kih-1l8/",
-    "description": "兵庫県神戸市に計画した就労支援施設B型オフィスの内装計画である。本計画では作業訓練室を単なる作業の場として閉じるのではなく、街に対してひらかれた場として計画することを試みた。そこでビニールカーテンによって内外の境界を緩やかに設定することで空間の開閉を柔軟に切り替えられる構成とした。カーテンを閉じた状態では落ち着いた作業環境を確保しつつ、開放時には活動が街へとにじみ出し外部との関係が緩やかになる。また天井にはポリカーボネート板をルーバー状に配置し、外光を柔らかく拡散させながら街並みや人の動きを反射させながら空間に引き込み、光や気配を通して内外が連続する環境を目指している。",
+    "description": "兵庫県神戸市に計画した就労支援施設B型オフィスの内装計画である。本計画では作業訓練室を単なる作業の場として閉じるのではなく、街に対してひらかれた場として計画することを試みた。そこでビニールカーテンによって内外の境界を緩やかに設定することで空間の開閉を柔軟に切り替えられる構成とした。カーテンを閉じた状態では落ち着いた作業環境を確保しつつ、開放時には活動が街へとにじみ出し外部との関係が緩やかになる。物品の販売や小規模なイベントなど、用途を限定せずその時々の使い方によって空間の使われ方が更新されていくことを意図している。また天井にはポリカーボネート板をルーバー状に配置し、外光を柔らかく拡散させながら街並みや人の動きを反射させながら空間に引き込み、光や気配を通して内外が連続する環境を目指している。また既存の状況を可能な限り活かしながらコストバランスを調整し過度に閉じることのない余白のある空間を目指した。就労の場でありながら地域と関係を持ち続ける場所であること。本計画は空間を分けるのではなく、内と外の関係性そのものをデザインする試みである。",
     "topic_hint": "内と外の境界の作り方",
     "category": "Office"
   },
   {
     "id": "ono345ia8",
     "title": "BAR TOKYO BOURBON CLUB",
-    "location": "東京都新宿区 / 2025.11",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/4ee1f6715f0647f3ad3ff69372b82bee/251206sinjukuBar_I%27m3.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/4ee1f6715f0647f3ad3ff69372b82bee/251206sinjukuBar_I%27m3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/cbc3d8b1034c4bab97861d318bf54c41/251206sinjukuBar_I%27m1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7410ef5967a24f5883fd0edcb8090a13/251206sinjukuBar_I%27m4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/81f0299260734d72adf3dab3da09b8ec/251206sinjukuBar_I%27m6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/30e10ab1d71e4e16b15cee68c25a24e3/251206sinjukuBar_I%27m7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0b8aaba72fe2450e82271de1b3e6c253/251206sinjukuBar_I%27m11.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ec89472fc3d44cb9973447bb204e8c88/251206sinjukuBar_I%27m15.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/98efa2f7c423474598824ac96e29bcc1/251206sinjukuBar_I%27m16.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7187651a7b97416ba3581d78a0fca713/251206sinjukuBar_I%27m19.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3f3c247fc52d4363ae4415f3c4042d96/251206sinjukuBar_I%27m23.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d32259285dfa402ab8f4c2cc531e9b72/251206sinjukuBar_I%27m21.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/4ee1f6715f0647f3ad3ff69372b82bee/251206sinjukuBar_I%27m3.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/cbc3d8b1034c4bab97861d318bf54c41/251206sinjukuBar_I%27m1.jpg",
@@ -43,15 +90,29 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/81f0299260734d72adf3dab3da09b8ec/251206sinjukuBar_I%27m6.jpg"
     ],
     "source_url": "https://colohu.com/project/ono345ia8/",
-    "description": "東京都新宿区新宿三丁目に計画した地下のウイスキーバーの内装計画である。長細い地下テナントの形状に対し、カウンターとボトル棚を奥行き方向に連続して配置し、視線が自然と奥へと導かれる線的な空間構成とした。カウンターを主としつつ一部にテーブル席を設けることで、ひとりで過ごす時間から複数人での滞在まで柔軟に対応している。地下空間においてあえて朱色を全面に用い、静かで暗い印象になりがちな地下のイメージを反転させることを試みた。空間全体に左官材を用い色調を統一することで、強い色でありながらも空間全体に包まれるような落ち着きを生み出している。",
+    "description": "東京都新宿区新宿三丁目に計画した地下のウイスキーバーの内装計画である。長細い地下テナントの形状に対し、カウンターとボトル棚を奥行き方向に連続して配置し、視線が自然と奥へと導かれる線的な空間構成とした。カウンターを主としつつ一部にテーブル席を設けることで、ひとりで過ごす時間から複数人での滞在まで柔軟に対応している。地下空間においてあえて朱色を全面に用い、静かで暗い印象になりがちな地下のイメージを反転させることを試みた。空間全体に左官材を用い色調を統一することで、強い色でありながらも空間全体に包まれるような落ち着きを生み出している。手仕事による左官の揺らぎが光を受け、単色でありながらも奥行きのある表情を与えている。背面に連続するボトル棚には酒瓶を高密度に配置し、それ自体を空間の主役となる要素として計画した。朱色に包まれた地下空間の中でウイスキーバーと向き合う時間そのものが印象として残る、ここにしかないバー空間を目指した。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "rcfd67p30",
     "title": "ステップラウンジのあるオフィス",
-    "location": "大阪府淀川区 / 2025.7",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a6332d71b924464bbc536921e7e72edf/2.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a6332d71b924464bbc536921e7e72edf/2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/8cd1876ac58c42efbab688534cf833df/4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/8abe27b791a1471b8dcc80e4fd328cb9/5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a744ae8355bd46b08bc4793abcc83cd2/6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/407fca718d4a4677a789b009d572fc91/7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/22124a4d1e8246c18b4e11f021a1ba86/3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/fc3c4b2e00714a9cbe3d85fbc6f50db5/8.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b0c6a80304db4096b4b79185125ceaea/%E9%83%A8%E5%88%861.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/76f9d0c64d734737bc0546cdb1cdfc35/%E9%83%A8%E5%88%864.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d62d1a9309174ee3957f4a6bfbb2294e/%E9%83%A8%E5%88%862.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/257dda32891c4f37b648078bdaf8b4f7/%E9%83%A8%E5%88%865.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/556444a5dfdc4d76bda5d8e5d8c6e4e4/9.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a6332d71b924464bbc536921e7e72edf/2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/8cd1876ac58c42efbab688534cf833df/4.jpg",
@@ -59,15 +120,25 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a744ae8355bd46b08bc4793abcc83cd2/6.jpg"
     ],
     "source_url": "https://colohu.com/project/rcfd67p30/",
-    "description": "大阪市淀川区のオフィス移転に伴う内装計画である。これまでのオフィスは執務に特化した空間構成だったため、自然なコミュニケーションが生まれにくい課題があった。そこで今回は空間の中心にステップラウンジを設けることで、人が集まり自然に会話が生まれるような新しいオフィスのかたちを計画した。ラウンジは円の形によって居場所がつくられ、腰掛けやすい高さに設定することで、自然と人が寄りつきスタッフ同士のコミュニケーションが偶発的に生まれるようなデザインとしている。床仕上げは既存のタイルカーペットを活かしつつ、一部を円形に切り替えることで空間にやわらかさとリズムを与えた。",
+    "description": "大阪市淀川区のオフィス移転に伴う内装計画である。これまでのオフィスは、執務に特化した空間構成だったため、自然なコミュニケーションが生まれにくい課題があった。そこで今回は、空間の中心に“ステップラウンジ”を設けることで、人が集まり自然に会話が生まれるような新しいオフィスのかたちを計画した。ラウンジは円の形によって居場所がつくられ、腰掛けやすい高さに設定することで、自然と人が寄りつきスタッフ同士のコミュニケーションが偶発的に生まれるようなデザインとしている。靴を脱いで過ごせる座敷のようなスペース、カジュアルな打ち合わせや立ち作業にも使えるカウンタースペースを組み込み、ワークスタイルに応じた多様な使い方ができるよう計画した。床仕上げは、極力コストを抑えるためにも既存のタイルカーペットを活かしつつ、一部を円形に切り替えることで空間にやわらかさとリズムを与えた。また天井にも対応するように円形の抜きや塗装のアクセントを加えることで、空間全体に統一感と遊び心をもたらしている。空間の中心に生まれたこの\"ステップラウンジ\"が、働く人々の関係性をやわらかくつなぎ直す新しいオフィスの核となることを目指した。",
     "topic_hint": "内と外の境界の作り方",
     "category": "Office"
   },
   {
     "id": "ixxisbsit",
     "title": "リビングのあるオフィス",
-    "location": "神奈川県横浜市 / 2025.5",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b7945a3c607f4025b0402848176a2768/OP2.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b7945a3c607f4025b0402848176a2768/OP2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5c1356e8ab7a41d9aec79b67b874313c/OP5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d4a41f2fca574f1d8255b858341de334/OP4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0396928fdfe0486f8224d0768d8c93bf/OP1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/4faf22aac6a6411c9df7a0f4357dc9a3/%E7%A4%BE%E9%95%B7%E3%82%B9%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B91.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/68611887aeab4febbd6eb75842e935c8/%E7%A4%BE%E9%95%B7%E3%82%B9%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B92.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/c24b693bf3ea47a6a806eb0b1d31cc69/OP7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9dd5725e16bb4935971d5a26e3bf7492/OP6.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b7945a3c607f4025b0402848176a2768/OP2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5c1356e8ab7a41d9aec79b67b874313c/OP5.jpg",
@@ -75,15 +146,33 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0396928fdfe0486f8224d0768d8c93bf/OP1.jpg"
     ],
     "source_url": "https://colohu.com/project/ixxisbsit/",
-    "description": "神奈川県横浜市における、オフィス移転に伴う内装計画である。家族のように気兼ねなく過ごせる、あたたかみのあるオフィスにしたいというクライアントの想いを受け、空間の中心にキッチンを備えたオープンスペースを配置し、自然と人が集うリビングのような場を計画した。既存オフィスでは飾るスペースがしっかりなかった賞状やトロフィーも、この空間の一部として展示できるよう、天井まで連続する木製のシェルフを設け、集う場全体を包み込むような温かみのある設えとした。オープンスペースとワークスペースは床仕上げを変化させることで緩やかに領域を切り分けている。",
+    "description": "神奈川県横浜市における、オフィス移転に伴う内装計画である。「家族のように気兼ねなく過ごせる、あたたかみのあるオフィスにしたい」というクライアントの想いを受け、空間の中心にキッチンを備えたオープンスペースを配置し、自然と人が集う“リビングのような場”を計画した。既存オフィスでは飾るスペースがしっかりなかった賞状やトロフィーも、この空間の一部として展示できるよう、天井まで連続する木製のシェルフを設け、集う場全体を包み込むような温かみのある設えとした。オープンスペースとワークスペースは、床仕上げを変化させることで緩やかに領域を切り分け、オンとオフの意識を自然に切り替えられるよう配慮している。単なる労働の場にとどまらず、自然とコミュニケーションが促進されるリビング空間を中心に据えた、新たなワークプレイスの提案である。",
     "topic_hint": "内と外の境界の作り方",
     "category": "Office"
   },
   {
     "id": "vu7os5el_5l",
     "title": "C.STAND 町田店",
-    "location": "東京都町田市 / 2025.4",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e5c3644e5e184b05b427ef1ae3822ca4/A1.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e5c3644e5e184b05b427ef1ae3822ca4/A1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/51372a49d0544e7abceb8c34be28bcab/D3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/70327c322c5544f08fe31b43c500cf4b/C2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/dd56ade4827b491d82950f0919eba191/D4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/174f2c21fd1c46098ba43a102b776321/A2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/f8f233bf1a6f41cd99eb477b26a9c131/D5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2c5f9e7e691f431994bd49d840fafe86/D6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7bca973ae83948f49113bec99271c769/C1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/17124ce04c1c47b29b999e503ef816d3/C3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/616cfd6350f244c2bb49b106e2be836f/D7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/dc3e3f4420214d7bbc71f903fd17cef3/B.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b0e29661d1b349529f12c24651a5b576/D2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/c29171ab04b9469088b5b6bc715d2d15/%E8%A9%B3%E7%B4%B03.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/cc42d9d1756048a8ae4ad7b37f493b4d/%E8%A9%B3%E7%B4%B0.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/785a8c05cca54276952b9d1b8938f8f2/%E8%A9%B3%E7%B4%B02.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2610f800b9794b6dae9aa8a7ed72f402/C4.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e5c3644e5e184b05b427ef1ae3822ca4/A1.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/51372a49d0544e7abceb8c34be28bcab/D3.jpg",
@@ -91,15 +180,27 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/dd56ade4827b491d82950f0919eba191/D4.jpg"
     ],
     "source_url": "https://colohu.com/project/vu7os5el_5l/",
-    "description": "東京町田市にあるシーシャバーC.STAND町田店の内装計画である。ボタニカルな内装という要望を受け、客席と植栽を混在させることで、視覚的・心理的に落ち着ける場を創出した。既存躯体であるRC造のラフな質感を生かし、木材や緑といった自然素材を対比的に用いることで、都市の中にありながら屋外のような開放感を目指している。天井はスケルトンとし高さを確保する一方で、窓際にはルーバー天井を設け、開放性と包まれ感の対比を生む空間構成とした。植栽はソフトパーティションとして席間のプライバシーを確保しつつ、開放感を損なわないよう計画されている。",
+    "description": "東京町田市にあるシーシャバー「C.STAND町田店」の内装計画である。「ボタニカルな内装」という要望を受け、客席と植栽を混在させることで、視覚的・心理的に落ち着ける場を創出した。既存躯体であるRC造のラフな質感を生かし、木材や緑といった自然素材を対比的に用いることで、都市の中にありながら屋外のような開放感を目指している。天井はスケルトンとし高さを確保する一方で、窓際にはルーバー天井を設け、開放性と包まれ感の対比を生む空間構成とした。さらに、有機的な曲面天井は自然界の不規則性を象徴し、空間全体に緩やかなリズムと抑揚をもたらすことで、心地よい滞在環境を演出している。植栽は単なる装飾にとどまらず、ソフトパーティションとして席間のプライバシーを確保しつつ、開放感を損なわないよう計画されている。都市の雑多さを忘れさせるような、都市と自然のコントラストを体現しつつ、サードプレイスとしての新しいシーシャ空間の実現を目指した。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "tl-sp8gha",
     "title": "BAR OMIYA Whisky Salon",
-    "location": "埼玉県大宮市 / 2026.2",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/08ced2c694d84e0ba19295fef49a67b5/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-13.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/08ced2c694d84e0ba19295fef49a67b5/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-13.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9b76e106b33a4fd596c5a395a701498b/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-10.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/713dbde5966845ddb90a4ebb8415e888/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/909b6ca9b7ea4e188a01e4e0de59137f/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0176bcc0713e44138c502f50ca38ed32/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/843f975f839d4ed78470adf414884cc5/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/c6ef9fd5424c4ac3838c30d5ace67d3c/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-19.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3c8e17b12a38454f8fb83050b5324316/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-18.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/42272776ab844fbd9a1813f4b2cd32ec/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-14.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1b643a6250964dc49e19d57bbf440604/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-8.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/08ced2c694d84e0ba19295fef49a67b5/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-13.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/9b76e106b33a4fd596c5a395a701498b/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-10.jpg",
@@ -107,15 +208,24 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/909b6ca9b7ea4e188a01e4e0de59137f/%E3%83%AC%E3%82%BF%E3%83%83%E3%83%81-5.jpg"
     ],
     "source_url": "https://colohu.com/project/tl-sp8gha/",
-    "description": "埼玉県大宮市に計画したバーの内装である。既存空間を最大限に活かしながら一部にアーチ状の開口や曲面壁を挿入し、空間にさりげない動きとアクセントを与えている。半個室や倉庫への入り口に設けたアーチは、機能的な区切りでありながら空間に柔らかな印象を付加する要素として作用する。全体は暖色系で統一し、光が滲むように広がる落ち着いた環境とした。その中でカウンターのみを明るく際立たせることで、空間の中で自然と視線が引き寄せられる場となっている。",
+    "description": "埼玉県大宮市に計画したバーの内装である。既存空間を最大限に活かしながら一部にアーチ状の開口や曲面壁を挿入し、空間にさりげない動きとアクセントを与えている。半個室や倉庫への入り口に設けたアーチは、機能的な区切りでありながら空間に柔らかな印象を付加する要素として作用する。全体は暖色系で統一し、光が滲むように広がる落ち着いた環境とした。その中でカウンターのみを明るく際立たせることで、空間の中で自然と視線が引き寄せられる場となっている。シンプルな構成の中で、最小限の要素の差異によって空間の質を引き上げることを意図した計画である。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "k10-eng11f1",
     "title": "つつみ屋工房高島屋店",
-    "location": "日本橋高島屋 / 2025.8",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e53ad672f19d4246ae7871b72fbb4e12/2a.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e53ad672f19d4246ae7871b72fbb4e12/2a.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/8c6e27da2a6644d0a07c7d2d4aa0c63e/3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/661ea092a161482cb1b387a56a40d5bc/7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/66e9cbce43184ffa912a1aa378aaf947/6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/15a337c315c9496681a0fc45fe2a5906/5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/52ce6926368d42f792c648473aa4412a/9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/4692267d2aee4c4bbb6c64ef8ba45ba9/4.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e53ad672f19d4246ae7871b72fbb4e12/2a.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/8c6e27da2a6644d0a07c7d2d4aa0c63e/3.jpg",
@@ -123,15 +233,25 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/66e9cbce43184ffa912a1aa378aaf947/6.jpg"
     ],
     "source_url": "https://colohu.com/project/k10-eng11f1/",
-    "description": "包むことをテーマにギフトラッピングを手がけるつつみ屋工房高島屋店の計画である。ギフトラッピングのサンプルを展示する棚と、実際にラッピングを行う作業カウンター、そしてお客様との会話が自然に生まれるサービスカウンターを一体的に構成したひとつの家具として空間を計画した。棚には包装紙サンプルを本のように立てかけ、書店のように棚差しや表紙見せで自由に取って選ぶことができる体験を重視したつくり方とした。一部壁をR壁にすることで場をやわらかく包み込みながら、どの方向からもギフトラッピングのサンプルが見やすい展示を実現している。",
+    "description": "「包む」ことをテーマにギフトラッピングを手がける〈つつみ屋工房〉高島屋店の計画である。ギフトラッピングのサンプルを展示する棚と、実際にラッピングを行う作業カウンター、そしてお客様との会話が自然に生まれるサービスカウンターを一体的に構成した「ひとつの家具」として空間を計画した。棚には包装紙サンプルを本のように立てかけ、書店のように「棚差し」や「表紙見せ」で自由に取って選ぶことができる体験を重視したつくり方とした。一部壁をR壁にすることで場をやわらかく包み込みながら、どの方向からもギフトラッピングのサンプルが見やすい展示を実現している。ブランドカラーである水色は、あえてビビッドなトーンで印象的な形状のサインとして配置し、奥まった立地でも視認性を高めている。本のように自由に手に取れる展示サンプルが店舗のアイコンとなり、ふと立ち寄りたくなるような、会話や体験が生まれる場を目指した。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "01prlezey",
     "title": "夜パフェBAR &VIGO 町田駅前店",
-    "location": "東京都町田市 / 2025.9",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/84225d04083c4056a1454b5d6fc9c2ea/2.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/84225d04083c4056a1454b5d6fc9c2ea/2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2c8f7bfeb8374a84b6797d410e274223/7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3792b773f9854a179044a87c0802af7f/5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/13239feea2f349499fa835225d76993d/6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/34a67daf5b4143379a45d6b16921dadd/3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/068c3b8f4a91464b81641dd5781b455f/%E8%A9%B3%E7%B4%B02.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/cf1893f1908149dc9eaec1daa2c12582/%E8%A9%B3%E7%B4%B03.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/b4ec912124044b0691cbb4a930371f24/8.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/84225d04083c4056a1454b5d6fc9c2ea/2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2c8f7bfeb8374a84b6797d410e274223/7.jpg",
@@ -139,15 +259,30 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/13239feea2f349499fa835225d76993d/6.jpg"
     ],
     "source_url": "https://colohu.com/project/01prlezey/",
-    "description": "東京都町田市に計画したパフェバーの内装計画である。細長いテナント形状に対し、その縦方向の奥行きを最大限活かすようにカウンターを線状に配置し一部にテーブル席を設けることで、多様な滞在スタイルに対応する柔軟な平面構成とした。空間は視覚的な魅力と華やかさのあるパフェが主役となるよう、装飾を抑えたミニマルなデザインとした。カウンターや壁面にはいくつかの異なる質感を持つ素材を用いながらも、色調は統一することで素材の微細な表情が際立つ上質で一体性のある空間を表現している。",
+    "description": "東京都町田市に計画したパフェバーの内装計画である。細長いテナント形状に対し、その縦方向の奥行きを最大限活かすようにカウンターを線状に配置し一部にテーブル席を設けることで、多様な滞在スタイルに対応する柔軟な平面構成とした。空間は視覚的な魅力と華やかさのあるパフェが主役となるよう、装飾を抑えたミニマルなデザインとした。カウンターや壁面にはいくつかの異なる質感を持つ素材を用いながらも、色調は統一することで素材の微細な表情が際立つ上質で一体性のある空間を表現している。外部の雑多な都市景観に対し、内部は静けさと余白を持った世界とすることで、訪れる人が非日常へと切り替わる「小さな異世界」を目指した。パフェの色彩が映えそこで過ごす体験が印象として残る、落ち着きと高揚感が同居するパフェとバーの融合する新しい空間の実現を目指した。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "ahgdbv_p5",
     "title": "恵比寿のオフィス",
-    "location": "東京都渋谷区恵比寿 / 2025.7",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0dfb0081f49041fa8dc26fb0686e5c04/1.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0dfb0081f49041fa8dc26fb0686e5c04/1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a8cb6f4ce7c74a958ba439f400357003/4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1598774c255741e5913104a2ad987fc9/5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/57e230a24c5e4140a1adbaa3dbe15edf/7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7e98900e175c46379767b6f6d445ec86/8.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a0d225b6e9194011a22b83bad8e16c7f/9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/7580c9c55c4446cfb486dcf0aac6df92/10.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/cf327da170f745a88bbef87c8c8cb037/11.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/659e6959cc78463dbc7d7af64a9d0520/%E9%83%A8%E5%88%861.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ab6656aeb8cf4fa28d627e5453ff5b5c/%E9%83%A8%E5%88%864.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/20059addada146f5b39232ada7c5a3da/%E9%83%A8%E5%88%863.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e975e59f04004ffab668ccc0b50dd5c2/%E9%83%A8%E5%88%865.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/13ad6db51448400896d367747fb19eec/6.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0dfb0081f49041fa8dc26fb0686e5c04/1.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a8cb6f4ce7c74a958ba439f400357003/4.jpg",
@@ -155,15 +290,25 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/57e230a24c5e4140a1adbaa3dbe15edf/7.jpg"
     ],
     "source_url": "https://colohu.com/project/ahgdbv_p5/",
-    "description": "東京都渋谷区恵比寿のオフィス移転に伴う内装計画である。クライアントからは和のスペースと洋のスペースを併せ持つオフィスを計画したいという要望があった。そこで今回は、ワークスペースと共用エリアを明確に分けつつも、双方が緩やかにつながる空間構成を計画した。執務エリアは濃い色合いを基調とし、天井に柔らかな曲線を取り入れることで落ち着きと奥行きを演出している。一方エントランスには畳敷きの和室や石庭、竹や盆栽など和の要素を取り込み、訪れる人を迎え入れる余白のある空間として静謐さを表現した。",
+    "description": "東京都渋谷区恵比寿のオフィス移転に伴う内装計画である。クライアントからは「和のスペースと洋のスペースを併せ持つオフィスを計画したい」という要望があった。そこで今回は、ワークスペースと共用エリアを明確に分けつつも、双方が緩やかにつながる空間構成を計画した。執務エリアは濃い色合いを基調とし、天井に柔らかな曲線を取り入れることで落ち着きと奥行きを演出している。一方エントランスには畳敷きの和室や石庭、竹や盆栽など和の要素を取り込み、訪れる人を迎え入れる余白のある空間として静謐さを表現した。和室エリアの天井には木ルーバーを巡らせ、光と影の繊細なリズムを生み出している。さらに躙口や縦格子、無垢の杉板ベンチなど和のディテールを随所に配することで、空間を移動するたびに視覚的な切り替えが生まれ、気持ちを緩やかに整える仕掛けとなっている。和と洋による緊張と緩和が交わるこの新しいオフィスが、働く人の関係性や働き方をより豊かに広げる場となることを目指した。",
     "topic_hint": "内と外の境界の作り方",
     "category": "Office"
   },
   {
     "id": "yp_utfo9uf",
     "title": "つつみ屋工房展示ブース",
-    "location": "東京ビッグサイト / 2025.7",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a552438e63b9405187ac3f6d105c9986/3.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a552438e63b9405187ac3f6d105c9986/3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2d3a103b967f44fe890dd51ea18d2a8a/6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0b3ed3710cbb482cb94c9174218d6953/5.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e10d34f613f54d4a99111e78de425893/4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1e4c002f9e6844e4a061d88cd25ceb71/%E9%83%A8%E5%88%863.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/6666c68cd9514a05afc582ec6f0e5f64/%E9%83%A8%E5%88%862.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ea64d146214d4cd68b1101a6218732a1/%E9%83%A8%E5%88%861.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/6631f2b04fe44a40967fc74bdeab6be8/2.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a552438e63b9405187ac3f6d105c9986/3.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2d3a103b967f44fe890dd51ea18d2a8a/6.jpg",
@@ -171,15 +316,29 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/e10d34f613f54d4a99111e78de425893/4.jpg"
     ],
     "source_url": "https://colohu.com/project/yp_utfo9uf/",
-    "description": "包むことをテーマにギフトラッピングを手がけるつつみ屋工房の展示会ブースの計画である。ブランド名にも含まれる包むという行為を空間全体に拡張することを意図し、ブース全体をやわらかく包み込むような曲面の幕板をデザインした。背面壁はあえて湾曲させることで、通路の斜め方向からもサインや展示棚が自然と目に入るよう視認性を高めている。什器は二つのL字型カウンターで構成され、それぞれに異なる役割を与えている。",
+    "description": "「包む」ことをテーマにギフトラッピングを手がける〈つつみ屋工房〉の展示会ブースの計画である。ブランド名にも含まれる“包む”という行為を空間全体に拡張することを意図し、ブース全体をやわらかく包み込むような曲面の幕板をデザインした。背面壁はあえて湾曲させることで、通路の斜め方向からもサインや展示棚が自然と目に入るよう視認性を高めている。什器は二つのL字型カウンターで構成され、それぞれに異なる役割を与えている。ひとつは通路コーナー部分に対して正面に開き、来場者が商品に手を伸ばしやすいよう高さを抑えた陳列棚を備え、もう一方は内側へ窪むように折れ、ギフトラッピングの実演や対話が生まれる“ひらけた場”としての機能を担う。また什器には実際にギフトラッピングに使用される包装紙を曲面状に貼り付け、ブランドの素材や色彩の魅力を什器に織り込むことで、来場者の視線を引き寄せるアイスポットとしての役割を果たしている。やわらかく包まれた空間の中で、モノと人、人と人とがふとしたきっかけでつながる、そんな出会いと発見を生む場の創出を目指した。",
     "topic_hint": "図面では伝わらない空間体験",
     "category": "Other"
   },
   {
     "id": "jfuztd7pzo4",
     "title": "とりいちず小岩北口店",
-    "location": "東京都江戸川区 / 2025.2",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a2723a84bef247eb89c903cc05f4b42d/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB2.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a2723a84bef247eb89c903cc05f4b42d/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ffa840b8426c4473a756502a01caabc4/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5f69edae6fda438e963fa2085124ba9c/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d607cf25187b4b1e8e1315a328aada53/%E5%BA%A7%E6%95%B72.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/569c79a8165046e48c9f8a069ecddce2/%E5%BA%A7%E6%95%B75.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ed541ef68a2f411790436c0b2c18f2f3/%E5%BA%A7%E6%95%B73.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/c247b062df684f93aa01a664bd1ea1f3/%E5%BA%A7%E6%95%B74.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/34b2e5176d4e4f149317c6681cb8bd87/%E5%BA%A7%E6%95%B76.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ccf49d28a57c411db006f1f21f2c9365/%E3%82%A8%E3%83%B3%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3dfd0c3d26b74c59b37f086cfc072514/%E8%A9%B3%E7%B4%B01.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/f5e4e7263a534ab59bbd41be5f0ae4c9/%E8%A9%B3%E7%B4%B02.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2d5ed1d5f03547a48f7d33b116d4a23d/%E5%BA%A7%E6%95%B71.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/a2723a84bef247eb89c903cc05f4b42d/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/ffa840b8426c4473a756502a01caabc4/%E3%83%86%E3%83%BC%E3%83%95%E3%82%99%E3%83%AB3.jpg",
@@ -187,24 +346,57 @@
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d607cf25187b4b1e8e1315a328aada53/%E5%BA%A7%E6%95%B72.jpg"
     ],
     "source_url": "https://colohu.com/project/jfuztd7pzo4/",
-    "description": "東京江戸川区にある大衆居酒屋とりいちず小岩北口店の改修計画である。テナントビルはRC造だが、改修前の内装には化粧柱や欄間が施されており、まるで木造のような昔ながらの和の趣が感じられた。そこで改修では天井に木を最大限に活用することで既存の和のテイストを継承しながらも新たな空間へと再構成することを目指した。テーブル席は大衆的で賑わいが感じられる場となるよう、客席上部の木フレーム間にカラフルなルーバー天井を設置し、活気ある場とした。座敷席は落ち着いた印象とするために天井高を低めに設定した。",
+    "description": "東京江戸川区にある大衆居酒屋「とりいちず小岩北口店」の改修計画である。テナントビルはRC造だが、改修前の内装には化粧柱や欄間が施されており、まるで木造のような昔ながらの和の趣が感じられた。そこで、改修では天井に木を最大限に活用することで既存の和のテイストを継承しながらも新たな空間へと再構成することを目指した。テーブル席と座敷席を設けることが要望であったため、それぞれ異なる性格を持つ空間としながら両方のスペースの天井には新たに木フレームを計画し、既存天井は撤去することでRC造のフレームをあえて露出させ、新旧の時間の経過を感じられる空間とした。テーブル席は大衆的で賑わいが感じられる場となるよう、客席上部の木フレーム間にカラフルなルーバー天井を設置し、活気ある場とした。また座敷席は落ち着いた印象とするために天井高を低めに設定し、客席上部の木フレーム間には、荒々しいコンクリート梁と呼応するかのようにOSB板を採用した。全体としてはグレートーンで落ち着いた印象を持たせつつ、カラフルでポップな要素を取り入れることで大衆らしい賑やかさと落ち着いた座敷の両方の顔を持つ、新たな大衆居酒屋スタイルの試みである。",
     "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
     "category": "Shop"
   },
   {
     "id": "1om_wwbft0",
     "title": "シェルフスペースをもつオフィス",
-    "location": "東京都品川区 / 2024.9",
+    "location": "",
     "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/770610979e3147d391ec78eac96c9842/1.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/770610979e3147d391ec78eac96c9842/1.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5d4f03c2c3a648d6b5f015d409f7880f/2.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3ddc0029173d418abc6f321b701c95f6/4.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1084c75476e34596926e340a66bd0cad/14.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/96ab515fb8cc4d7195bd1708793ab798/6.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0a77dd55ce7f41388d30f6b0dfbd66a2/7.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1555b25cebcc403f8b15f24e0e1f1789/8.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/02405c492d42431bb408cea8a4d2afee/9.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1c0cc6ee1ae6499bbbdaa207cc5aa771/10.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/49ba0068b2a844d4bbc305b2fa824f84/11.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/d57ee4d37648478888328efd7b02208a/5.jpg"
+    ],
     "carousel_image_urls": [
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/770610979e3147d391ec78eac96c9842/1.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/5d4f03c2c3a648d6b5f015d409f7880f/2.jpg",
       "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3ddc0029173d418abc6f321b701c95f6/4.jpg",
-      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/96ab515fb8cc4d7195bd1708793ab798/6.jpg"
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/1084c75476e34596926e340a66bd0cad/14.jpg"
     ],
     "source_url": "https://colohu.com/project/1om_wwbft0/",
-    "description": "東京五反田にあるオフィス移転及び拡大に伴う改修計画である。移転前の事務所では会議室とワークスペースのみで働く人々の交流が生まれづらい場所であった。そこで国際色豊かな会社であるため、多様な人々との交流が生まれやすく居場所を選択できるオフィススペースの計画を考えた。棚がディスプレイのみではなく、働く人々の交流の場所として機能するよう椅子や机としても利用でき、ラウンジのような場所になるシェルフスペースを計画した。シェルフスペースはディスプレイによって彩られ働く人々が緩くまとわりつき、イベントや日常のコミュニケーションが図れる新しいワークプレイスの提案である。",
+    "description": "東京五反田にあるオフィス移転及び拡大に伴う改修計画である。移転前の事務所では会議室とワークスペースのみで働く人々の交流が生まれづらい場所であった。そこで国際色豊かな会社であるため、多様な人々との交流が生まれやすく居場所を選択できるオフィススペースの計画を考えた。移転前の事務所では棚にディスプレイが至るところでされていたことから棚という１つの着想を得た。棚がディスプレイのみではなく、働く人々の交流の場所として機能するよう椅子や机としても利用でき、ラウンジのような場所になる「シェルフスペース」を計画した。「シェルフスペース」はディスプレイによって彩られ働く人々が緩くまとわりつき、イベントや日常のコミュニケーションが図れる新しいワークプレイスの提案である。",
     "topic_hint": "内と外の境界の作り方",
     "category": "Office"
+  },
+  {
+    "id": "mjd6f97re",
+    "title": "銀シャリおむすびen",
+    "location": "",
+    "image_url": "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2564e0c70c374af2bffbbd37e7d0dacd/%E5%86%85%E8%A6%B3.jpg",
+    "all_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2564e0c70c374af2bffbbd37e7d0dacd/%E5%86%85%E8%A6%B3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0dce3a54697b4352a66c2e766e19d911/IMG_0359.HEIC",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3a5908b2d770483693b6c5a031a1ce65/241024_%E5%A0%BA%E9%8A%80%E3%82%B7%E3%83%A3%E3%83%AA.jpg"
+    ],
+    "carousel_image_urls": [
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/2564e0c70c374af2bffbbd37e7d0dacd/%E5%86%85%E8%A6%B3.jpg",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/0dce3a54697b4352a66c2e766e19d911/IMG_0359.HEIC",
+      "https://images.microcms-assets.io/assets/0870e531c28a4ba5b3a0184e144ff2ed/3a5908b2d770483693b6c5a031a1ce65/241024_%E5%A0%BA%E9%8A%80%E3%82%B7%E3%83%A3%E3%83%AA.jpg"
+    ],
+    "source_url": "https://colohu.com/project/mjd6f97re/",
+    "description": "大阪道頓堀に位置するおむすび屋さんの計画である。インバウンドによる外国人観光客をターゲットとした店舗ではおむすびのつくられる過程も見れるようカウンター越しに顧客との対話が可能なオープンな内部空間の構成とした。またイートインコーナーを計画し小休憩やコミュニケーションが図れる場として細長い既存物件の長辺方向を活かしたカウンターを計画した。道頓堀の混沌とした風景のなかで落ち着いた無機質な空間のテイストとすることで周辺環境との差別化を図る内装とした。",
+    "topic_hint": "素材選定の理由(木・コンクリート・鉄など)",
+    "category": "Shop"
   }
 ]
