@@ -2,8 +2,14 @@ name: Draft (生成 → Issue起票 → LINE通知)
 
 on:
   schedule:
+    # JST 9:00 (UTC 0:00) 月水金日のみ下書き起票(週4回・約2日に1回)
     - cron: "0 0 * * 0,1,3,5"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      exclude_source_ids:
+        description: "除外したい作品ID(カンマ区切り)。LINEから「別のプロジェクトで」と指示された時に渡される"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -26,6 +32,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DRAFT_OUT: draft.json
+          EXCLUDE_SOURCE_IDS: ${{ github.event.inputs.exclude_source_ids }}
         run: node post.js draft
 
       - name: Create approval issue
@@ -57,18 +64,20 @@ jobs:
               ``,
               `---`,
               ``,
-              `## Instagram 用キャプション`,
+              `## Instagram 用キャプション (2200字以内)`,
               ``,
               `<!-- INSTAGRAM_BODY_START -->`,
               draft.instagram_caption,
               `<!-- INSTAGRAM_BODY_END -->`,
               ``,
+              `> 修正したい場合は、START/END マーカーの **間だけ** を編集してください。`,
+              ``,
               `---`,
               ``,
               `## 操作方法`,
               ``,
-              `- 📷 投稿 → ラベル \`approved-instagram\``,
-              `- ❌ 却下 → ラベル \`rejected\``,
+              `- 📷 **Instagramに投稿** → ラベル \`approved-instagram\``,
+              `- ❌ **却下** → ラベル \`rejected\``,
               ``,
               `---`,
               ``,
@@ -126,11 +135,16 @@ jobs:
           node -e '
             let carouselUrls = [];
             try { carouselUrls = JSON.parse(process.env.CAROUSEL_URLS_JSON || "[]"); } catch {}
+            // フォールバック: image_url のみ
             if (carouselUrls.length === 0 && process.env.IMAGE_URL) {
               carouselUrls = [process.env.IMAGE_URL];
             }
+            // .jpg/.jpeg/.png のみ送信(WebP/HEICはLINEで弾かれる)
             carouselUrls = carouselUrls.filter(u => u && u.startsWith("https://") && /\.(jpg|jpeg|png)(\?|$)/i.test(u));
+
             const text = `📷 Instagram投稿の下書き\n\n${process.env.ISSUE_TITLE}\n\n${process.env.CAPTION_FULL}\n\n👉 内容確認/承認:\n${process.env.ISSUE_URL}\n\n承認: ラベル approved-instagram\n却下: ラベル rejected`;
+
+            // LINEは1リクエストで最大5メッセージ。画像最大4枚 + テキスト1個
             const messages = [];
             for (const url of carouselUrls.slice(0, 4)) {
               messages.push({
@@ -140,10 +154,12 @@ jobs:
               });
             }
             messages.push({ type: "text", text: text.slice(0, 4900) });
+
             const body = JSON.stringify({
               to: process.env.LINE_USER_ID,
               messages,
             });
+
             fetch("https://api.line.me/v2/bot/message/push", {
               method: "POST",
               headers: {
@@ -153,7 +169,13 @@ jobs:
               body,
             }).then(async (r) => {
               const t = await r.text();
-              if (!r.ok) { console.error("LINE notify failed:", r.status, t); process.exit(1); }
+              if (!r.ok) {
+                console.error("LINE notify failed:", r.status, t);
+                process.exit(1);
+              }
               console.log("LINE notify sent");
-            }).catch((e) => { console.error("LINE notify error:", e); process.exit(1); });
+            }).catch((e) => {
+              console.error("LINE notify error:", e);
+              process.exit(1);
+            });
           '
