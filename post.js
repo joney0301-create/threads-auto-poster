@@ -22,7 +22,6 @@ const {
   DRAFT_IN_INSTAGRAM_CAPTION,
   DRAFT_IN_IMAGE_URL,
   DRAFT_IN_CAROUSEL_URLS,
-  DRAFT_IN_SOURCE_ID,
   TARGET,
 } = process.env;
 
@@ -34,6 +33,8 @@ if (MODE === "draft") {
 } else {
   die(`Unknown mode: ${MODE} (use 'draft' or 'publish')`);
 }
+
+// ===== DRAFT MODE =====
 
 async function runDraft() {
   const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
@@ -53,7 +54,7 @@ async function runDraft() {
     topic: threadsResult.topic,
     title: source.title || null,
     location: source.location || null,
-    image_url: carouselUrls[0] || source.image_url,
+    image_url: source.image_url,
     carousel_image_urls: carouselUrls,
     is_carousel: isCarousel,
     source_url: source.source_url || null,
@@ -74,9 +75,29 @@ function pickSource() {
   if (!existsSync(SOURCES_PATH)) return null;
   const sources = JSON.parse(readFileSync(SOURCES_PATH, "utf-8"));
   if (!Array.isArray(sources) || sources.length === 0) return null;
+
+  // LINEから「別のプロジェクト」指示が来た時に渡される除外ID(カンマ区切り)
+  const explicitExcludes = (process.env.EXCLUDE_SOURCE_IDS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  // 過去に投稿済みのID(直近30件)
   const usedIds = readUsedSourceIds();
-  const unused = sources.filter((s) => !usedIds.includes(s.id));
-  const pool = unused.length > 0 ? unused : sources;
+
+  // 1. まず「明示除外 + 過去投稿済み」を全部弾いたプールを作る
+  const fullyExcluded = new Set([...explicitExcludes, ...usedIds]);
+  let pool = sources.filter((s) => !fullyExcluded.has(s.id));
+
+  // 2. 何も残らなければ、明示除外だけは絶対守って、過去履歴は無視
+  if (pool.length === 0) {
+    const minimalExcluded = new Set(explicitExcludes);
+    pool = sources.filter((s) => !minimalExcluded.has(s.id));
+  }
+
+  // 3. それでも空(=全作品が除外指定されている)なら、最後の手段で全件から
+  if (pool.length === 0) pool = sources;
+
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -107,14 +128,20 @@ function readRecentImageUrlsForSource(sourceId) {
 }
 
 function pickCarouselImages(source) {
+  // 全画像URLがあればそこから、無ければ既存のcarousel_image_urlsから
   const allUrls = (Array.isArray(source.all_image_urls) && source.all_image_urls.length > 0)
     ? source.all_image_urls
     : (Array.isArray(source.carousel_image_urls) ? source.carousel_image_urls : []);
+
   if (allUrls.length === 0) return [];
   if (allUrls.length <= 4) return allUrls.slice(0, 4);
+
+  // 直近で同じ作品で使った画像を避ける
   const recentlyUsed = readRecentImageUrlsForSource(source.id);
   const unused = allUrls.filter((u) => !recentlyUsed.includes(u));
   const pool = unused.length >= 4 ? unused : allUrls;
+
+  // ランダムに4枚選ぶ(順番もシャッフル)
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, 4);
 }
@@ -146,8 +173,7 @@ async function generatePost(anthropic, source, target, isCarousel) {
   if (source.location) userPromptParts.push(`- 場所/竣工: ${source.location}`);
   if (source.description) userPromptParts.push(`- 設計概要: ${source.description}`);
   if (target === "instagram" && isCarousel) {
-    const c = (source.carousel_image_urls || []).length || 4;
-    userPromptParts.push(`- 複数枚のカルーセル投稿(スワイプ式、${c}枚)`);
+    userPromptParts.push(`- 複数枚のカルーセル投稿(スワイプ式、${(source.carousel_image_urls || []).length}枚)`);
   }
   userPromptParts.push("");
   userPromptParts.push("この作品と関連する投稿文を書いてください。");
@@ -187,6 +213,8 @@ function readRecentPosts(n, target) {
   } catch { return []; }
 }
 
+// ===== PUBLISH MODE =====
+
 async function runPublish() {
   const target = (TARGET || "threads").toLowerCase();
   if (target === "threads") return await publishThreads();
@@ -198,8 +226,11 @@ async function publishThreads() {
   if (!THREADS_USER_ID || !THREADS_ACCESS_TOKEN) die("THREADS_USER_ID and THREADS_ACCESS_TOKEN are required");
   const text = DRAFT_IN_THREADS_TEXT;
   if (!text) die("DRAFT_IN_THREADS_TEXT is required");
+
   const imageUrl = (DRAFT_IN_IMAGE_URL || "").trim() || null;
+
   if (text.length > 500) die(`Text too long: ${text.length} chars (Threads limit 500)`);
+
   const createUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
   const body = { text, access_token: THREADS_ACCESS_TOKEN };
   if (imageUrl) {
@@ -208,6 +239,7 @@ async function publishThreads() {
   } else {
     body.media_type = "TEXT";
   }
+
   const createRes = await fetch(createUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -215,7 +247,9 @@ async function publishThreads() {
   });
   if (!createRes.ok) throw new Error(`Threads create failed: ${createRes.status} ${await createRes.text()}`);
   const { id: containerId } = await createRes.json();
+
   await sleep(imageUrl ? 8000 : 3000);
+
   const publishUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads_publish`;
   const publishRes = await fetch(publishUrl, {
     method: "POST",
@@ -224,9 +258,15 @@ async function publishThreads() {
   });
   if (!publishRes.ok) throw new Error(`Threads publish failed: ${publishRes.status} ${await publishRes.text()}`);
   const { id: postId } = await publishRes.json();
+
   appendFileSync(LOG_PATH, JSON.stringify({
-    ts: new Date().toISOString(), target: "threads", text, image_url: imageUrl, postId,
+    ts: new Date().toISOString(),
+    target: "threads",
+    text,
+    image_url: imageUrl,
+    postId,
   }) + "\n");
+
   console.log(`Threads posted: id=${postId}`);
 }
 
@@ -234,9 +274,16 @@ async function publishInstagram() {
   if (!INSTAGRAM_USER_ID || !INSTAGRAM_ACCESS_TOKEN) die("INSTAGRAM_USER_ID and INSTAGRAM_ACCESS_TOKEN are required");
   const caption = DRAFT_IN_INSTAGRAM_CAPTION;
   if (!caption) die("DRAFT_IN_INSTAGRAM_CAPTION is required");
-  const carouselUrls = (DRAFT_IN_CAROUSEL_URLS || "").split(",").map((s) => s.trim()).filter(Boolean);
+
+  const carouselUrls = (DRAFT_IN_CAROUSEL_URLS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+
   const singleUrl = (DRAFT_IN_IMAGE_URL || "").trim();
+
   if (caption.length > 2200) die(`Caption too long: ${caption.length} chars (IG limit 2200)`);
+
   let creationId;
   if (carouselUrls.length >= 2) {
     creationId = await igCreateCarouselContainer(carouselUrls, caption);
@@ -244,7 +291,9 @@ async function publishInstagram() {
     if (!singleUrl) die("DRAFT_IN_IMAGE_URL is required for single image post");
     creationId = await igCreateImageContainer(singleUrl, caption);
   }
+
   await igWaitForContainer(creationId);
+
   const publishUrl = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media_publish`;
   const publishRes = await fetch(publishUrl, {
     method: "POST",
@@ -253,11 +302,18 @@ async function publishInstagram() {
   });
   if (!publishRes.ok) throw new Error(`IG publish failed: ${publishRes.status} ${await publishRes.text()}`);
   const { id: postId } = await publishRes.json();
+
   appendFileSync(LOG_PATH, JSON.stringify({
-    ts: new Date().toISOString(), target: "instagram", text: caption,
-    image_url: singleUrl || carouselUrls[0], carousel_count: carouselUrls.length,
-    carousel_image_urls: carouselUrls, source_id: DRAFT_IN_SOURCE_ID || null, postId,
+    ts: new Date().toISOString(),
+    target: "instagram",
+    text: caption,
+    image_url: singleUrl || carouselUrls[0],
+    carousel_count: carouselUrls.length,
+    carousel_image_urls: carouselUrls,
+    source_id: process.env.DRAFT_IN_SOURCE_ID || null,
+    postId,
   }) + "\n");
+
   console.log(`Instagram posted: id=${postId}`);
 }
 
@@ -266,7 +322,11 @@ async function igCreateImageContainer(imageUrl, caption) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image_url: imageUrl, caption, access_token: INSTAGRAM_ACCESS_TOKEN }),
+    body: JSON.stringify({
+      image_url: imageUrl,
+      caption,
+      access_token: INSTAGRAM_ACCESS_TOKEN,
+    }),
   });
   if (!res.ok) throw new Error(`IG image container failed: ${res.status} ${await res.text()}`);
   const { id } = await res.json();
@@ -280,19 +340,27 @@ async function igCreateCarouselContainer(imageUrls, caption) {
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image_url: imageUrl, is_carousel_item: true, access_token: INSTAGRAM_ACCESS_TOKEN }),
+      body: JSON.stringify({
+        image_url: imageUrl,
+        is_carousel_item: true,
+        access_token: INSTAGRAM_ACCESS_TOKEN,
+      }),
     });
     if (!res.ok) throw new Error(`IG carousel child failed: ${res.status} ${await res.text()}`);
     const { id } = await res.json();
     childIds.push(id);
     await igWaitForContainer(id);
   }
+
   const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      media_type: "CAROUSEL", caption, children: childIds.join(","), access_token: INSTAGRAM_ACCESS_TOKEN,
+      media_type: "CAROUSEL",
+      caption,
+      children: childIds.join(","),
+      access_token: INSTAGRAM_ACCESS_TOKEN,
     }),
   });
   if (!res.ok) throw new Error(`IG carousel parent failed: ${res.status} ${await res.text()}`);
@@ -316,5 +384,11 @@ async function igWaitForContainer(containerId, maxWaitMs = 120000) {
   throw new Error(`IG container did not finish in ${maxWaitMs}ms (last status: ${lastStatus})`);
 }
 
+// ===== utils =====
+
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
-function die(msg) { console.error(`Error: ${msg}`); process.exit(1); }
+
+function die(msg) {
+  console.error(`Error: ${msg}`);
+  process.exit(1);
+}
