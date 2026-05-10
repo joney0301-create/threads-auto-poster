@@ -1,0 +1,110 @@
+name: Publish failure notify (失敗通知 → 再試行待ち)
+
+# publish.yml(またはscheduled-publish.yml経由のpublish)が失敗した時、
+# LINEで通知 + Issueを「再試行待ち」状態に戻す
+on:
+  workflow_run:
+    workflows: ["Publish (approved → Instagram投稿)"]
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+jobs:
+  notify:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find failed issue and re-mark as draft
+        id: find_and_mark
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // approved-instagram ラベルの open Issue を全部拾う
+            // (失敗した投稿は posted-instagram が付いていないので残っているはず)
+            const approved = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'approved-instagram',
+              per_page: 20,
+            });
+
+            if (approved.length === 0) {
+              core.notice('No approved-instagram open issues found — maybe already retried');
+              core.setOutput('found', 'false');
+              return;
+            }
+
+            const targets = [];
+            for (const issue of approved) {
+              // failed-instagram ラベルを付け、draft も付け直し、approved-instagram を外す
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: ['failed-instagram', 'draft'],
+                });
+              } catch (e) { core.warning(`addLabels failed for #${issue.number}: ${e}`); }
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: issue.number, name: 'approved-instagram',
+                });
+              } catch (e) { /* ignore if already removed */ }
+              targets.push({ number: issue.number, title: issue.title, url: issue.html_url });
+            }
+
+            core.setOutput('found', 'true');
+            core.setOutput('targets_json', JSON.stringify(targets));
+            core.setOutput('run_url', `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.payload.workflow_run.id}`);
+
+      - name: Notify LINE
+        if: steps.find_and_mark.outputs.found == 'true'
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+          TARGETS_JSON: ${{ steps.find_and_mark.outputs.targets_json }}
+          RUN_URL: ${{ steps.find_and_mark.outputs.run_url }}
+        run: |
+          node -e '
+            const targets = JSON.parse(process.env.TARGETS_JSON || "[]");
+            if (!process.env.LINE_TOKEN || !process.env.LINE_USER_ID) {
+              console.error("LINE secrets missing — skipping");
+              process.exit(0);
+            }
+            const lines = [
+              "⚠️ Instagram投稿に失敗しました",
+              "",
+              "原因の多くはネットワーク一時不調です。",
+              "下記から再試行できます。",
+              "",
+              "■ 失敗したIssue:",
+              ...targets.map(t => `・#${t.number} ${t.title.replace(/^\\[投稿予定\\]\\s*/, "").slice(0, 30)}\n  ${t.url}`),
+              "",
+              "■ エラー詳細(技術ログ):",
+              process.env.RUN_URL,
+              "",
+              "■ 再投稿するには、LINEで時刻を返信:",
+              "・「今すぐ投稿」「再試行」 → すぐリトライ",
+              "・「20時に投稿」「30分後に投稿」「明日朝8時に投稿」 → 指定時刻に予約"
+            ];
+            const text = lines.join("\n").slice(0, 4900);
+            fetch("https://api.line.me/v2/bot/message/push", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.LINE_TOKEN}`,
+              },
+              body: JSON.stringify({
+                to: process.env.LINE_USER_ID,
+                messages: [{ type: "text", text }],
+              }),
+            }).then(async r => {
+              const t = await r.text();
+              if (!r.ok) { console.error("LINE notify failed:", r.status, t); process.exit(1); }
+              console.log("LINE notify sent");
+            }).catch(e => { console.error("LINE error:", e); process.exit(1); });
+          '
