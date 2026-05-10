@@ -1,0 +1,65 @@
+name: Scheduled publish (15分間隔チェッカー)
+
+on:
+  schedule:
+    # 15分ごとに実行(GitHub Actions 無料枠で月最大2,976分のうち約720分使用)
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Promote due scheduled issues to approved
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = Date.now();
+            // scheduled ラベル付きの open Issue を取得
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'scheduled',
+              per_page: 50,
+            });
+            core.notice(`Found ${issues.length} scheduled issue(s)`);
+
+            let promoted = 0;
+            for (const issue of issues) {
+              const m = (issue.body || '').match(/<!-- SCHEDULED_AT:\s*([^\s>]+)\s*-->/);
+              if (!m) {
+                core.warning(`Issue #${issue.number}: SCHEDULED_AT marker missing — skip`);
+                continue;
+              }
+              const scheduled = Date.parse(m[1]);
+              if (Number.isNaN(scheduled)) {
+                core.warning(`Issue #${issue.number}: invalid SCHEDULED_AT (${m[1]}) — skip`);
+                continue;
+              }
+              if (scheduled > now) {
+                const minLeft = Math.round((scheduled - now) / 60000);
+                core.info(`Issue #${issue.number}: not yet (${minLeft} min left)`);
+                continue;
+              }
+
+              // 期限到来 → approved-instagram を付けて scheduled を外す
+              core.notice(`Promoting Issue #${issue.number} (scheduled at ${m[1]})`);
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['approved-instagram'],
+              });
+              try {
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  issue_number: issue.number, name: 'scheduled',
+                });
+              } catch (e) { /* ラベルが既にない場合は無視 */ }
+              promoted++;
+            }
+            core.notice(`Promoted ${promoted} issue(s) to approved-instagram`);
