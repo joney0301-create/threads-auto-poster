@@ -96,6 +96,8 @@ jobs:
               { name: 'approved-instagram', color: 'e94560', description: 'Instagramに投稿' },
               { name: 'rejected', color: 'b60205', description: '却下' },
               { name: 'posted-instagram', color: 'fad8c7', description: 'Instagram投稿済み' },
+              { name: 'scheduled', color: '5319e7', description: '時刻指定の投稿予約' },
+              { name: 'failed-instagram', color: 'd93f0b', description: 'Instagram投稿失敗(要再試行)' },
             ];
             const existing = (await github.paginate(github.rest.issues.listLabelsForRepo, {
               owner: context.repo.owner, repo: context.repo.repo, per_page: 100,
