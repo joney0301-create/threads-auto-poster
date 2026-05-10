@@ -1,0 +1,104 @@
+name: Publish success notify (投稿完了通知)
+
+# publish.yml が成功した時、LINEに「投稿完了!」通知を送る
+on:
+  workflow_run:
+    workflows: ["Publish (approved → Instagram投稿)"]
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: read
+  actions: read
+
+jobs:
+  notify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find just-posted issue
+        id: find_posted
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // posted-instagram ラベル付きの最新Issue(直前にpublishされたもの)
+            const posted = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              labels: 'posted-instagram',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 3,
+            });
+            if (posted.length === 0) {
+              core.notice('No posted-instagram issue found — skip');
+              core.setOutput('found', 'false');
+              return;
+            }
+            const iss = posted[0];
+            // キャプション抜粋
+            const m = (iss.body || '').match(/<!-- INSTAGRAM_BODY_START -->\n?([\s\S]*?)\n?<!-- INSTAGRAM_BODY_END -->/);
+            const caption = m ? m[1].trim() : '';
+            const titleClean = (iss.title || '').replace(/^\[投稿予定\]\s*[\d-]+\s*[\d:]+\s*JST\s*[—\-]\s*/, '').slice(0, 40);
+            // 画像URL(プレビュー添付用)
+            const carouselMatch = (iss.body || '').match(/-\s*carousel_image_urls:\s*`([^`]+)`/);
+            const carouselUrls = carouselMatch
+              ? carouselMatch[1].split(',').map(s => s.trim()).filter(Boolean)
+              : [];
+            const showable = carouselUrls.filter(u => u && u.startsWith('https://') && /\.(jpg|jpeg|png)(\?|$)/i.test(u));
+
+            core.setOutput('found', 'true');
+            core.setOutput('number', String(iss.number));
+            core.setOutput('title', titleClean);
+            core.setOutput('url', iss.html_url);
+            core.setOutput('caption', caption);
+            core.setOutput('image_urls_json', JSON.stringify(showable.slice(0, 3)));
+
+      - name: Notify LINE
+        if: steps.find_posted.outputs.found == 'true'
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+          ISSUE_NUMBER: ${{ steps.find_posted.outputs.number }}
+          ISSUE_TITLE: ${{ steps.find_posted.outputs.title }}
+          ISSUE_URL: ${{ steps.find_posted.outputs.url }}
+          CAPTION: ${{ steps.find_posted.outputs.caption }}
+          IMAGE_URLS_JSON: ${{ steps.find_posted.outputs.image_urls_json }}
+        run: |
+          node -e '
+            if (!process.env.LINE_TOKEN || !process.env.LINE_USER_ID) {
+              console.error("LINE secrets missing — skip");
+              process.exit(0);
+            }
+            const imageUrls = JSON.parse(process.env.IMAGE_URLS_JSON || "[]");
+            const messages = [];
+            // 投稿された画像を最大3枚プレビュー
+            imageUrls.slice(0, 3).forEach(u => {
+              messages.push({ type: "image", originalContentUrl: u, previewImageUrl: u });
+            });
+            const caption = process.env.CAPTION || "";
+            const excerpt = caption.length > 200 ? caption.slice(0, 200) + "…" : caption;
+            const text =
+              "✅ Instagramに投稿完了しました!\n\n" +
+              `#${process.env.ISSUE_NUMBER} ${process.env.ISSUE_TITLE}\n\n` +
+              excerpt + "\n\n" +
+              "📎 " + process.env.ISSUE_URL;
+            messages.push({ type: "text", text: text.slice(0, 4900) });
+
+            fetch("https://api.line.me/v2/bot/message/push", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.LINE_TOKEN}`,
+              },
+              body: JSON.stringify({
+                to: process.env.LINE_USER_ID,
+                messages: messages.slice(0, 5),
+              }),
+            }).then(async r => {
+              const t = await r.text();
+              if (!r.ok) { console.error("LINE notify failed:", r.status, t); process.exit(1); }
+              console.log("LINE notify sent");
+            }).catch(e => { console.error("LINE error:", e); process.exit(1); });
+          '
