@@ -1,0 +1,56 @@
+name: Publish Threads Direct (X bot連携 — repository_dispatch起動)
+
+# 𝕏投稿GAS から GitHub API repository_dispatch を叩いて起動する専用ワークフロー。
+# 既存の draft.yml / publish.yml(Instagram用)には一切干渉しない。
+on:
+  repository_dispatch:
+    types: [threads-post]
+  workflow_dispatch:
+    inputs:
+      text:
+        description: 'Threads投稿本文(500字以内)'
+        required: true
+      image_url:
+        description: '画像URL(無ければテキストのみ投稿)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Resolve inputs
+        id: input
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "text<<__EOF__" >> "$GITHUB_OUTPUT"
+            echo "${{ github.event.inputs.text }}" >> "$GITHUB_OUTPUT"
+            echo "__EOF__" >> "$GITHUB_OUTPUT"
+            echo "image_url=${{ github.event.inputs.image_url }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "text<<__EOF__" >> "$GITHUB_OUTPUT"
+            echo "${{ github.event.client_payload.text }}" >> "$GITHUB_OUTPUT"
+            echo "__EOF__" >> "$GITHUB_OUTPUT"
+            echo "image_url=${{ github.event.client_payload.image_url }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post to Threads
+        env:
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          DRAFT_IN_THREADS_TEXT: ${{ steps.input.outputs.text }}
+          DRAFT_IN_IMAGE_URL: ${{ steps.input.outputs.image_url }}
+          TARGET: threads
+        run: node post.js publish
