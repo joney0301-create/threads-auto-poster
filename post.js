@@ -11,8 +11,9 @@ const SOURCES_PATH = join(__dirname, "sources.json");
 
 const MODE = (process.argv[2] || "draft").toLowerCase();
 
-// 環境変数を読み込み + secret に混入しがちな前後空白/改行/制御文字を除去
-// (GitHub Secrets に貼る時に末尾改行が紛れ込むと OAuth 190 "Cannot parse access token" になる)
+// 環境変数を読み込み + secret に混入しがちな空白/改行/制御文字を全除去
+// (GitHub Secrets に貼る時にトークン中央や末尾に改行が紛れ込むと OAuth 190 "Cannot parse access token" になる)
+// OAuthトークン・API key・数値IDには空白文字は入らないので全除去で安全
 const _clean = (v) => (v == null ? v : String(v).replace(/\s/g, ''));
 const {
   ANTHROPIC_API_KEY: _RAW_ANTHROPIC_API_KEY,
@@ -32,7 +33,6 @@ const THREADS_USER_ID = _clean(_RAW_THREADS_USER_ID);
 const THREADS_ACCESS_TOKEN = _clean(_RAW_THREADS_ACCESS_TOKEN);
 const INSTAGRAM_USER_ID = _clean(_RAW_INSTAGRAM_USER_ID);
 const INSTAGRAM_ACCESS_TOKEN = _clean(_RAW_INSTAGRAM_ACCESS_TOKEN);
-
 
 if (MODE === "draft") {
   if (!ANTHROPIC_API_KEY) die("ANTHROPIC_API_KEY is required for draft mode");
@@ -281,6 +281,10 @@ async function publishThreads() {
 
 async function publishInstagram() {
   if (!INSTAGRAM_USER_ID || !INSTAGRAM_ACCESS_TOKEN) die("INSTAGRAM_USER_ID and INSTAGRAM_ACCESS_TOKEN are required");
+  // デバッグ: トークンが正しく読めてるか先頭/末尾と長さを表示(全文は出さない)
+  console.error(`[DEBUG] INSTAGRAM_USER_ID = ${INSTAGRAM_USER_ID}`);
+  console.error(`[DEBUG] INSTAGRAM_ACCESS_TOKEN length = ${INSTAGRAM_ACCESS_TOKEN.length}`);
+  console.error(`[DEBUG] INSTAGRAM_ACCESS_TOKEN prefix = ${INSTAGRAM_ACCESS_TOKEN.slice(0, 10)}...${INSTAGRAM_ACCESS_TOKEN.slice(-6)}`);
   const caption = DRAFT_IN_INSTAGRAM_CAPTION;
   if (!caption) die("DRAFT_IN_INSTAGRAM_CAPTION is required");
 
