@@ -235,29 +235,25 @@ async function publishThreads() {
   if (!THREADS_USER_ID || !THREADS_ACCESS_TOKEN) die("THREADS_USER_ID and THREADS_ACCESS_TOKEN are required");
   const text = DRAFT_IN_THREADS_TEXT;
   if (!text) die("DRAFT_IN_THREADS_TEXT is required");
-
-  const imageUrl = (DRAFT_IN_IMAGE_URL || "").trim() || null;
-
   if (text.length > 500) die(`Text too long: ${text.length} chars (Threads limit 500)`);
 
-  const createUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
-  const body = { text, access_token: THREADS_ACCESS_TOKEN };
-  if (imageUrl) {
-    body.media_type = "IMAGE";
-    body.image_url = imageUrl;
+  const carouselUrls = (DRAFT_IN_CAROUSEL_URLS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 4); // Threads APIは最大20だが、X側に揃えて4枚まで
+  const singleImageUrl = (DRAFT_IN_IMAGE_URL || "").trim() || null;
+
+  let containerId;
+  if (carouselUrls.length >= 2) {
+    containerId = await threadsCreateCarousel(carouselUrls, text);
   } else {
-    body.media_type = "TEXT";
+    const url = singleImageUrl || (carouselUrls.length === 1 ? carouselUrls[0] : null);
+    containerId = await threadsCreateSingle(url, text);
   }
 
-  const createRes = await fetch(createUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!createRes.ok) throw new Error(`Threads create failed: ${createRes.status} ${await createRes.text()}`);
-  const { id: containerId } = await createRes.json();
-
-  await sleep(imageUrl ? 8000 : 3000);
+  // コンテナ処理待ち(画像がある時は長めに)
+  await sleep(carouselUrls.length >= 2 ? 12000 : (singleImageUrl || carouselUrls.length > 0 ? 8000 : 3000));
 
   const publishUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads_publish`;
   const publishRes = await fetch(publishUrl, {
@@ -272,11 +268,67 @@ async function publishThreads() {
     ts: new Date().toISOString(),
     target: "threads",
     text,
-    image_url: imageUrl,
+    image_url: singleImageUrl || carouselUrls[0] || null,
+    carousel_count: carouselUrls.length,
+    carousel_image_urls: carouselUrls,
     postId,
   }) + "\n");
 
   console.log(`Threads posted: id=${postId}`);
+}
+
+async function threadsCreateSingle(imageUrl, text) {
+  const createUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
+  const body = { text, access_token: THREADS_ACCESS_TOKEN };
+  if (imageUrl) {
+    body.media_type = "IMAGE";
+    body.image_url = imageUrl;
+  } else {
+    body.media_type = "TEXT";
+  }
+  const res = await fetch(createUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Threads create failed: ${res.status} ${await res.text()}`);
+  const { id } = await res.json();
+  return id;
+}
+
+async function threadsCreateCarousel(imageUrls, text) {
+  const childIds = [];
+  for (const imageUrl of imageUrls) {
+    const childUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
+    const res = await fetch(childUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        media_type: "IMAGE",
+        image_url: imageUrl,
+        is_carousel_item: true,
+        access_token: THREADS_ACCESS_TOKEN,
+      }),
+    });
+    if (!res.ok) throw new Error(`Threads carousel child failed: ${res.status} ${await res.text()}`);
+    const { id } = await res.json();
+    childIds.push(id);
+    await sleep(2500); // 子コンテナの処理待ち
+  }
+  const parentUrl = `https://graph.threads.net/v1.0/${THREADS_USER_ID}/threads`;
+  const res = await fetch(parentUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      media_type: "CAROUSEL",
+      text,
+      children: childIds.join(","),
+      access_token: THREADS_ACCESS_TOKEN,
+    }),
+  });
+  if (!res.ok) throw new Error(`Threads carousel parent failed: ${res.status} ${await res.text()}`);
+  const { id } = await res.json();
+  return id;
 }
 
 async function publishInstagram() {
