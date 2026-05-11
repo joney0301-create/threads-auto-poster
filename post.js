@@ -307,7 +307,7 @@ async function publishInstagram() {
 
   await igWaitForContainer(creationId);
 
-  const publishUrl = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media_publish`;
+  const publishUrl = `https://graph.facebook.com/v21.0/${INSTAGRAM_USER_ID}/media_publish`;
   const publishRes = await fetch(publishUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -331,7 +331,7 @@ async function publishInstagram() {
 }
 
 async function igCreateImageContainer(imageUrl, caption) {
-  const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
+  const url = `https://graph.facebook.com/v21.0/${INSTAGRAM_USER_ID}/media`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -349,7 +349,7 @@ async function igCreateImageContainer(imageUrl, caption) {
 async function igCreateCarouselContainer(imageUrls, caption) {
   const childIds = [];
   for (const imageUrl of imageUrls) {
-    const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
+    const url = `https://graph.facebook.com/v21.0/${INSTAGRAM_USER_ID}/media`;
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -365,7 +365,7 @@ async function igCreateCarouselContainer(imageUrls, caption) {
     await igWaitForContainer(id);
   }
 
-  const url = `https://graph.instagram.com/v21.0/${INSTAGRAM_USER_ID}/media`;
+  const url = `https://graph.facebook.com/v21.0/${INSTAGRAM_USER_ID}/media`;
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -386,7 +386,7 @@ async function igWaitForContainer(containerId, maxWaitMs = 120000) {
   let lastStatus = "";
   while (Date.now() - start < maxWaitMs) {
     await sleep(5000);
-    const url = `https://graph.instagram.com/v21.0/${containerId}?fields=status_code,status&access_token=${INSTAGRAM_ACCESS_TOKEN}`;
+    const url = `https://graph.facebook.com/v21.0/${containerId}?fields=status_code,status&access_token=${INSTAGRAM_ACCESS_TOKEN}`;
     const res = await fetch(url);
     if (!res.ok) continue;
     const j = await res.json();
