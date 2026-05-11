@@ -11,12 +11,15 @@ const SOURCES_PATH = join(__dirname, "sources.json");
 
 const MODE = (process.argv[2] || "draft").toLowerCase();
 
+// 環境変数を読み込み + secret に混入しがちな前後空白/改行/制御文字を除去
+// (GitHub Secrets に貼る時に末尾改行が紛れ込むと OAuth 190 "Cannot parse access token" になる)
+const _clean = (v) => (v == null ? v : String(v).replace(/^\s+|\s+$/g, ''));
 const {
-  ANTHROPIC_API_KEY,
-  THREADS_USER_ID,
-  THREADS_ACCESS_TOKEN,
-  INSTAGRAM_USER_ID,
-  INSTAGRAM_ACCESS_TOKEN,
+  ANTHROPIC_API_KEY: _RAW_ANTHROPIC_API_KEY,
+  THREADS_USER_ID: _RAW_THREADS_USER_ID,
+  THREADS_ACCESS_TOKEN: _RAW_THREADS_ACCESS_TOKEN,
+  INSTAGRAM_USER_ID: _RAW_INSTAGRAM_USER_ID,
+  INSTAGRAM_ACCESS_TOKEN: _RAW_INSTAGRAM_ACCESS_TOKEN,
   DRAFT_OUT,
   DRAFT_IN_THREADS_TEXT,
   DRAFT_IN_INSTAGRAM_CAPTION,
@@ -24,6 +27,12 @@ const {
   DRAFT_IN_CAROUSEL_URLS,
   TARGET,
 } = process.env;
+const ANTHROPIC_API_KEY = _clean(_RAW_ANTHROPIC_API_KEY);
+const THREADS_USER_ID = _clean(_RAW_THREADS_USER_ID);
+const THREADS_ACCESS_TOKEN = _clean(_RAW_THREADS_ACCESS_TOKEN);
+const INSTAGRAM_USER_ID = _clean(_RAW_INSTAGRAM_USER_ID);
+const INSTAGRAM_ACCESS_TOKEN = _clean(_RAW_INSTAGRAM_ACCESS_TOKEN);
+
 
 if (MODE === "draft") {
   if (!ANTHROPIC_API_KEY) die("ANTHROPIC_API_KEY is required for draft mode");
