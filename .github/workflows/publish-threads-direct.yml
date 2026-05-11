@@ -11,7 +11,11 @@ on:
         description: 'Threads投稿本文(500字以内)'
         required: true
       image_url:
-        description: '画像URL(無ければテキストのみ投稿)'
+        description: '画像URL(単一画像時)'
+        required: false
+        default: ''
+      carousel_urls:
+        description: '複数画像URL(カンマ区切り・最大4枚 / 単一画像時は image_url を使用)'
         required: false
         default: ''
 
@@ -31,26 +35,26 @@ jobs:
       - name: Install deps
         run: npm ci || npm install
 
-      - name: Resolve inputs
-        id: input
+      - name: Diagnose secrets and inputs
+        env:
+          REQ_TEXT: ${{ github.event.client_payload.text || github.event.inputs.text }}
+          REQ_IMAGE_URL: ${{ github.event.client_payload.image_url || github.event.inputs.image_url }}
+          HAS_USER_ID: ${{ secrets.THREADS_USER_ID != '' }}
+          HAS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN != '' }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "text<<__EOF__" >> "$GITHUB_OUTPUT"
-            echo "${{ github.event.inputs.text }}" >> "$GITHUB_OUTPUT"
-            echo "__EOF__" >> "$GITHUB_OUTPUT"
-            echo "image_url=${{ github.event.inputs.image_url }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "text<<__EOF__" >> "$GITHUB_OUTPUT"
-            echo "${{ github.event.client_payload.text }}" >> "$GITHUB_OUTPUT"
-            echo "__EOF__" >> "$GITHUB_OUTPUT"
-            echo "image_url=${{ github.event.client_payload.image_url }}" >> "$GITHUB_OUTPUT"
-          fi
+          echo "event_name: ${{ github.event_name }}"
+          echo "text length: ${#REQ_TEXT}"
+          echo "text head 60: ${REQ_TEXT:0:60}"
+          echo "image_url: ${REQ_IMAGE_URL:-(none)}"
+          echo "secret THREADS_USER_ID present: $HAS_USER_ID"
+          echo "secret THREADS_ACCESS_TOKEN present: $HAS_TOKEN"
 
       - name: Post to Threads
         env:
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          DRAFT_IN_THREADS_TEXT: ${{ steps.input.outputs.text }}
-          DRAFT_IN_IMAGE_URL: ${{ steps.input.outputs.image_url }}
+          DRAFT_IN_THREADS_TEXT: ${{ github.event.client_payload.text || github.event.inputs.text }}
+          DRAFT_IN_IMAGE_URL: ${{ github.event.client_payload.image_url || github.event.inputs.image_url }}
+          DRAFT_IN_CAROUSEL_URLS: ${{ github.event.client_payload.carousel_urls || github.event.inputs.carousel_urls }}
           TARGET: threads
         run: node post.js publish
